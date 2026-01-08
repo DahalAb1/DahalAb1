@@ -20,7 +20,7 @@
 
 ---
 
-### 👨‍💻 About Me
+### About Me
 
 I am a Computer Science senior focused on **Machine Learning Operations (MLOps)** and **Systems Engineering**. I don't just train models; I build the pipelines that make them reliable in the real world.
 
