@@ -1,5 +1,11 @@
 # 💫 About Me:
-🔭 I’m currently working on machine learning projects focused on time-series prediction, applied NLP, and systems-aware ML, alongside coursework and independent research.<br><br>👯 I’m looking to collaborate on ML research, data-driven systems, open-source tools, or projects at the intersection of ML and real-world impact.<br><br>🤝 I’m looking for help with deepening my understanding of advanced ML theory, model evaluation, and research-oriented problem framing.<br><br>🌱 I’m currently learning advanced machine learning methods, distributed systems concepts, and practical deployment of ML models.<br><br>💬 Ask me about machine learning, applied research, systems fundamentals, or translating complex ideas into clear solutions.<br><br>⚡ Fun fact: I work as a live captionist, so I’m unusually good at listening carefully and thinking precisely under time pressure, and I can type really fast. 
+I’m a senior Computer Science student focused on building solid software foundations and understanding how systems are designed, deployed, and evaluated.
+
+I’m currently strengthening my deployment skills with AWS and learning how backend services, data pipelines, and ML components fit together in real applications. My interests sit at the intersection of software engineering, systems, and applied machine learning.
+
+Alongside my studies, I work as a live captionist. The role has trained me to operate under pressure, listen carefully, and translate complex information accurately and quickly—skills that carry directly into engineering work.
+
+I’m looking to grow as a generalist software engineer with ML experience and strong systems literacy, and I’m open to collaborating on well-scoped open-source or applied projects.
 
 
 # 💻 Tech Stack:
