@@ -40,10 +40,3 @@ I am a Computer Science senior focused on **Machine Learning Operations (MLOps)*
 | **DevOps & Cloud** | ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi) |
 
 ---
-
-### 📈 GitHub Stats
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=DahalAb1&show_icons=true&theme=tokyonight&hide_border=true&bg_color=00000000" height="170" alt="stats graph" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=DahalAb1&layout=compact&theme=tokyonight&hide_border=true&bg_color=00000000" height="170" alt="languages graph" />
-</div>
