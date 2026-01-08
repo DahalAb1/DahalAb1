@@ -28,7 +28,7 @@
 
 I am a Computer Science senior focused on **Machine Learning Operations (MLOps)** and **Systems Engineering**. I don't just train models; I build the pipelines that make them reliable in the real world.
 
-* 🔭 **Current Focus:** Strengthening deployment skills with **AWS** and orchestrating data pipelines for large-scale time-series analysis.
+* 🔭 **Current Focus:** Strengthening deployment skills with **AWS** and mastering Data Structures & Algorithms.
 * 🌱 **Growth:** Deepening my understanding of **Distributed Systems** to handle model training at scale.
 * ⚡ **The Human Side:** By day, I’m a **live captionist**. This role has trained me to listen hyper-carefully and process information instantly—skills that make me a precise and efficient engineer.
 * 👯 **Collaboration:** I’m looking for open-source or applied research projects that sit at the intersection of **AI theory** and **production engineering**.
