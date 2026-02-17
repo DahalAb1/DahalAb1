@@ -22,7 +22,7 @@
 
 ### About Me
 
-I love to approach things with first principal, anything that has a really complex infrastructure is combination of many simple concepts, decoding it and integrating it is what drives me. Currently I've involved doing the following things. 
+I love to approach things with first principal, anything that has a really complex infrastructure is combination of many simple concepts, decoding it and integrating it is what drives me. 
 
 * 🌱 **Growth:** Currently building redis from scratch. 
 * ⚡ **The Human Side:** I love depth in things. 
