@@ -1,4 +1,7 @@
-### Abhinesh Dahal
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
+  <img src="assets/banner-light.svg" width="880" alt="Abhinesh Dahal: systems from first principles">
+</picture>
 
 I build systems from first principles: complex infrastructure is a
 composition of simple concepts, and I take things apart until that
