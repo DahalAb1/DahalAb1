@@ -1,27 +1,30 @@
-<div align="center">
+### Abhinesh Dahal
 
-<a href="https://git.io/typing-svg">
- <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=30&pause=1000&color=3670A0&center=true&vCenter=true&width=700&lines=Hi!+I'm+Abhinesh" alt="Typing SVG" />
-  </a>
-  <p>
-  </p>
+I build systems from first principles: complex infrastructure is a
+composition of simple concepts, and I take things apart until that
+composition is visible.
 
-  <p>
-    <a href="https://linkedin.com/in/abhinesh-dahal" target="_blank">
-      <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
-    </a>
-    
-  </p>
+**Building now:** consensus from the ground up.
 
-</div>
+| | |
+|---|---|
+| [raft-kv](https://github.com/DahalAb1/raft-kv) | Raft and a linearizable key/value store in Go. ~1,700 lines, validated with 100-run test gauntlets. The README is the full build story, bug by bug. |
+| [raft-demo](https://github.com/DahalAb1/raft-demo) | The same code running live: election, failover, crash recovery. `go run .`, or [watch it animated](https://dahalab1.github.io/raft-demo/). |
+| [Redis](https://github.com/DahalAb1/Redis) | A Redis-shaped server in C++, from scratch: event loop, protocol, hashtable. Written up chapter by chapter. |
 
----
+My favorite bug so far, as its latency histogram:
 
-### About Me
+```text
+20-25ms  ██████████████████ 239
+25-30ms  ▌ 6
+30-35ms  █████████████████████████████ 377
+35-40ms  ▌ 4
+40-45ms  ██████████████████ 234
+```
 
-I love to approach things with first principal, anything that has a really complex infrastructure is combination of many simple concepts, decoding it and integrating it is what drives me. 
+Spikes exactly 10ms apart with near-empty bins between: a fixed-period
+clock was quantizing every operation. Two greps later, two 10ms sleeps
+in the hot path. The shape of a distribution is a diagnostic; the full
+story is in [raft-kv](https://github.com/DahalAb1/raft-kv).
 
-* 🌱 **Growth:** Currently building Raft based KV store from scratch. 
-* ⚡ **The Human Side:** I love depth in things. 
-
----
+[LinkedIn](https://linkedin.com/in/abhinesh-dahal) · dahalabhinesh1@gmail.com
