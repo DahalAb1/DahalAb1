@@ -1,7 +1,6 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
-  <img src="assets/banner-light.svg" width="880" alt="Abhinesh Dahal: systems from first principles">
-</picture>
+<img src="assets/terminal.svg" width="880" alt="Terminal session: whoami prints abhinesh dahal; go run ./raft-demo elects a leader, survives a leader kill, and keeps the data intact">
+
+### Abhinesh Dahal
 
 I build systems from first principles: complex infrastructure is a
 composition of simple concepts, and I take things apart until that
