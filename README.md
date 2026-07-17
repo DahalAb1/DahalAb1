@@ -3,11 +3,13 @@
 ### Abhinesh Dahal
 
 Senior at Texas State University, double-majoring in Computer Science
-and Applied Mathematics. I work at the data layer: consensus, storage
-engines, replication, and the infrastructure underneath backends.
-I build things from the ground up because it forces me to understand
-what happens beneath the abstractions, and I document what I learn as
-carefully as I build.
+and Applied Mathematics.
+
+Anything with a really complex infrastructure is a combination of many
+simple concepts; decoding it and integrating it is what drives me. I
+build things from the ground up because it forces me to understand what
+is happening beneath the abstractions. Lately that means the data
+layer: consensus, storage engines, replication.
 
 | | |
 |---|---|
