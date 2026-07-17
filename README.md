@@ -5,55 +5,75 @@
 
 <!-- ──────────────────────── about ─────────────────────── -->
 
-Senior at Texas State University, studying Computer Science and Applied
-Mathematics.
+I build systems, because it is the hardest thinking I have found.
+Nothing in it can be hand-waved. Every decision has to be argued for,
+because the ones you skip do not announce themselves: the system lies to
+you quietly, and you find out later.
 
-I want work that makes me think, and systems is the hardest thinking I
-have found. It is what the internet and everything on top of it is
-actually made of, and none of it can be hand-waved. Every decision has
-to be argued for, because the ones you skip do not announce themselves:
-the system just lies to you quietly, and you find out later.
+> When I started Raft I did not know where to begin. I kept coming back
+> to the same questions for weeks, each pass cleared a little more, and
+> eventually it was not a mystery. Stay exposed to a problem long enough
+> and it opens.
 
-The way in is always the same. Complex infrastructure is a combination
-of many simple concepts, so I take it apart and build it back from the
-ground up. I wrote a Redis-style server from raw TCP sockets to find out
-what network programming really is. I wrote Raft and a replicated
-key/value store because I think the hard problem ahead is not models but
-data: whoever can keep millions of requests correct and available is
-doing the work that matters.
+<!-- ─────────────────────── expandables ────────────────── -->
 
-That is slower than it sounds. When I started Raft I did not know where
-to begin, and for weeks the whole thing stayed a fog. I kept coming back
-to the same questions, each pass cleared a little more, and eventually
-it was not a mystery anymore. It is the only technique I trust: stay
-exposed to a problem long enough and it opens. Depth is a question asked
-repeatedly.
+<details>
+<summary><code>cat method.md</code></summary>
 
-<!-- ─────────────────────── building ───────────────────── -->
+<br>
 
-#### Right now
+I work from the ground up. A Redis-style server from raw TCP sockets, to
+learn what network programming actually is. Raft and a replicated
+key/value store, because the hard problem ahead is not models but data:
+whoever can keep millions of requests correct and available is doing the
+work that matters.
 
-Distributed systems. The pinned repositories below hold the code, and
-each README is the full build story, bug by bug. The Raft cluster also
-runs in a browser: **[watch it animated](https://dahalab1.github.io/raft-demo/)**.
+Complex infrastructure is a combination of many simple concepts. Taking
+it apart and building it back is the only way I trust to understand
+anything, and it is why every project here starts at the bottom instead
+of at a library.
 
-#### Elsewhere
+</details>
 
-Machine learning and data analysis. At the Texas Department of Family
-and Protective Services I ran survival analysis on statewide foster-care
-placement data across 254 counties and presented the findings to 40+
+<details>
+<summary><code>ls ~/work</code></summary>
+
+<br>
+
+**Distributed systems**, right now. The pinned repositories hold the
+code, and each README is the full build story, bug by bug. The Raft
+cluster also runs in a browser:
+**[watch it animated](https://dahalab1.github.io/raft-demo/)**.
+
+**Machine learning and data analysis**, before that. At the Texas
+Department of Family and Protective Services I ran survival analysis on
+foster-care placement data across 254 counties, presented to 40+
 stakeholders.
 
-#### Off the keyboard
+</details>
 
-Soccer and mountain bikes. The avatar is Senku, who rebuilds
-civilization from scratch, one dependency at a time. Favorite book:
+<details>
+<summary><code>cat ~/.profile</code></summary>
+
+<br>
+
+Senior at Texas State University, studying Computer Science and Applied
+Mathematics. Soccer and mountain bikes away from the keyboard. The
+avatar is Senku, who rebuilds civilization from scratch. Favorite book:
 *The Count of Monte Cristo*.
 
-#### Reach me
+</details>
 
-[LinkedIn](https://linkedin.com/in/abhinesh-dahal) or
-[dahalabhinesh1@gmail.com](mailto:dahalabhinesh1@gmail.com).
+<details>
+<summary><code>whois abhinesh</code></summary>
+
+<br>
+
+[LinkedIn](https://linkedin.com/in/abhinesh-dahal) ·
+[dahalabhinesh1@gmail.com](mailto:dahalabhinesh1@gmail.com)
+
+</details>
 
 <!-- ─────────────────────── status bar ─────────────────── -->
+
 <img src="assets/statusbar.svg" width="880" alt="Abhinesh Dahal · Austin, TX · CS and Applied Math at Texas State · open to Summer 2027">
