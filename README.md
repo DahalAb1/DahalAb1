@@ -8,26 +8,26 @@
 Senior at Texas State University, studying Computer Science and Applied
 Mathematics.
 
-I want work that makes me think. Systems is the hardest thing I have
-found: it is what the internet and everything on top of it is actually
-made of, none of it can be hand-waved, and every decision has to be
-argued for or the system lies to you quietly. Complex infrastructure is
-a combination of many simple concepts, and taking it apart is what
-drives me.
+I want work that makes me think, and systems is the hardest thinking I
+have found. It is what the internet and everything on top of it is
+actually made of, and none of it can be hand-waved. Every decision has
+to be argued for, because the ones you skip do not announce themselves:
+the system just lies to you quietly, and you find out later.
 
-So I build from the ground up. A Redis-style server from raw TCP
-sockets, because I wanted to know what network programming really is.
-Raft and a replicated key/value store, because I think the hard problem
-ahead is not models but data: whoever can keep millions of requests
-correct and available is doing the work that matters.
+The way in is always the same. Complex infrastructure is a combination
+of many simple concepts, so I take it apart and build it back from the
+ground up. I wrote a Redis-style server from raw TCP sockets to find out
+what network programming really is. I wrote Raft and a replicated
+key/value store because I think the hard problem ahead is not models but
+data: whoever can keep millions of requests correct and available is
+doing the work that matters.
 
-When I started Raft I did not know where to begin. I kept coming back to
-the question for weeks and it got clearer each time, until it was not a
-mystery anymore. That is the only technique I trust: stay exposed to a
-problem long enough and it opens. Depth is everything, and depth is a
-question asked repeatedly.
-
-<img src="assets/rule.svg" width="880" alt="">
+That is slower than it sounds. When I started Raft I did not know where
+to begin, and for weeks the whole thing stayed a fog. I kept coming back
+to the same questions, each pass cleared a little more, and eventually
+it was not a mystery anymore. It is the only technique I trust: stay
+exposed to a problem long enough and it opens. Depth is a question asked
+repeatedly.
 
 <!-- ─────────────────────── building ───────────────────── -->
 
@@ -50,11 +50,10 @@ Soccer and mountain bikes. The avatar is Senku, who rebuilds
 civilization from scratch, one dependency at a time. Favorite book:
 *The Count of Monte Cristo*.
 
-<img src="assets/rule.svg" width="880" alt="">
+#### Reach me
 
-<!-- ─────────────────────── contact ────────────────────── -->
+[LinkedIn](https://linkedin.com/in/abhinesh-dahal) or
+[dahalabhinesh1@gmail.com](mailto:dahalabhinesh1@gmail.com).
 
-<a href="https://linkedin.com/in/abhinesh-dahal"><img src="assets/chip-linkedin.svg" height="34" alt="LinkedIn: abhinesh-dahal"></a>
-<a href="mailto:dahalabhinesh1@gmail.com"><img src="assets/chip-email.svg" height="34" alt="Email: dahalabhinesh1@gmail.com"></a>
-<img src="assets/chip-location.svg" height="34" alt="Austin, TX">
-<img src="assets/chip-seeking.svg" height="34" alt="Open to Summer 2027 software engineering internships">
+<!-- ─────────────────────── status bar ─────────────────── -->
+<img src="assets/statusbar.svg" width="880" alt="Abhinesh Dahal · Austin, TX · CS and Applied Math at Texas State · open to Summer 2027">
