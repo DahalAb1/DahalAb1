@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="34" viewBox="0 0 128 34" role="img" aria-label="austin, tx">
+  <rect x="0.75" y="0.75" width="126" height="32.5" rx="6.5" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <g transform="translate(13, 9.5)" fill="#7d8590"><path d="M7.5 14.25 C7.5 14.25 13 9.4 13 5.75 A5.5 5.5 0 0 0 2 5.75 C2 9.4 7.5 14.25 7.5 14.25 Z" fill="none" stroke="#7d8590" stroke-width="1.5" stroke-linejoin="round"/><circle cx="7.5" cy="5.75" r="1.9" fill="#7d8590"/></g>
+  <text x="37.0" y="21.4" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"
+        font-size="12.5" fill="#e6edf3">austin, tx</text>
+</svg>
