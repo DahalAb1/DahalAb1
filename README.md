@@ -3,17 +3,16 @@
 
 <!-- ──────────────────────── about ─────────────────────── -->
 
-I am a Computer Science and Applied Mathematics student at Texas State
-building distributed systems in Go and C++. I work on systems because it
-is the hardest thinking I have found. Nothing in it can be hand-waved.
-Every decision has to be argued for, because the ones you skip do not
-announce themselves: the system lies to you quietly, and you find out
-later.
+I like systems work because the hard parts cannot be hidden for long.
+Replication, memory layout, network boundaries, and failure behavior
+all force the same question: what is actually guaranteed? Nothing can
+be hand-waved, and the decisions you skip do not announce themselves.
+The system lies to you quietly, and you find out later.
 
-> When I started Raft I did not know where to begin. I kept coming back
-> to the same questions, each pass cleared a little more, and eventually
-> it was not a mystery. Stay exposed to a problem long enough and it
-> opens.
+Most of my recent work starts from that question: a Raft-backed
+key-value store in Go, a Redis-style TCP server in C++, and data
+structures where latency spikes and correctness bugs are visible
+instead of abstract.
 
 <!-- ─────────────────────── expandables ────────────────── -->
 
@@ -34,7 +33,7 @@ I tend to choose these problems because nothing else lights up my head
 the same way, and because of where I think the next decade goes. Two
 things will matter most: intelligence itself, and getting it to
 everyone. Models get the attention, but a model nobody can reach is a
-research result — serving one to billions of people is a storage,
+research result. Serving one to billions of people is a storage,
 replication, and coordination problem. That is infrastructure, and it is
 the layer I want to build on.
 
@@ -44,7 +43,7 @@ analysis on foster-care placement data across 254 counties and presented
 the findings to 40+ stakeholders.
 
 It took me a while to work this way. I spent two years building from
-tutorials, which made me feel fast and left me empty — I was decorating
+tutorials, which made me feel fast and left me empty: I was decorating
 the top floors of a building whose foundation I had never seen. A C++
 course fixed that: pointers, memory, the machine underneath. I went down
 the stack and stayed there, which is why every project here starts at
@@ -61,6 +60,13 @@ Away from the keyboard I play soccer and go mountain biking. The avatar
 is Senku, from *Dr. Stone*. Favorite book: *The Count of Monte Cristo*.
 
 </details>
+
+<!-- ─────────────────────── sign-off ───────────────────── -->
+
+```
+~ % grep lesson notes/raft.md
+stay with a problem long enough and the shape of it appears
+```
 
 <!-- ────────────────────────  contact ─────────────────── -->
 
