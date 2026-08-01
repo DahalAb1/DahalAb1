@@ -1,53 +1,51 @@
 <!-- ──────────────────────── hero ──────────────────────── -->
-<img src="assets/terminal.svg" width="880" alt="Terminal session: Abhinesh Dahal, CS and Applied Math student at Texas State; focused on distributed systems and software engineering; seeking a Summer 2027 software engineering internship">
+<img src="assets/terminal.svg?v=2" width="880" alt="Terminal session: Abhinesh Dahal, CS and Applied Math student at Texas State; focused on distributed systems and software engineering; projects include raft-kv in Go and a Redis-style server in C++, both built from the syscalls up; seeking a Summer 2027 software engineering internship">
 
 <!-- ──────────────────────── about ─────────────────────── -->
 
-I like systems work because the hard parts cannot be hidden for long.
-Replication, memory layout, network boundaries, and failure behavior
-all force the same question: what is actually guaranteed? Nothing can
-be hand-waved, and the decisions you skip do not announce themselves.
-The system lies to you quietly, and you find out later.
+I build distributed systems from the socket up — consensus, storage, replication.
 
-Most of my recent work starts from that question: a Raft-backed
-key-value store in Go, a Redis-style TCP server in C++, and data
-structures where latency spikes and correctness bugs are visible
-instead of abstract.
+The next decade needs two things: intelligence, and infrastructure big enough to
+hold it. A model nobody can reach is just a research result. I want to build the
+layer that gets it to everyone.
+
+<!-- ─────────────────────── projects ───────────────────── -->
+
+### Projects
+
+**[raft-kv](https://github.com/DahalAb1/raft-kv)** · Go — Raft implemented from
+[the paper](https://raft.github.io/raft.pdf): leader election, log replication,
+crash persistence, and snapshots, with a linearizable key/value store on top.
+~1,700 lines, every layer validated with 100-run test gauntlets. The hardest bugs
+failed at **14%, 9%, and 2.5%** rather than deterministically, so they had to be
+found by measurement instead of by reading.
+[**Watch a cluster elect a leader →**](https://dahalab1.github.io/raft-demo/)
+
+**[Redis](https://github.com/DahalAb1/Redis)** · C++ — a Redis-style server built up
+from `socket(2)`: non-blocking I/O, a `poll()` event loop, and a hashtable that
+migrates a bounded number of nodes per operation instead of stalling to rehash.
+Pipelined over loopback it holds **1M GET ops/sec** on a single thread, and its
+worst insert during a resize stays **under 1ms**, where `std::unordered_map`
+freezes for **~240ms** at four million keys.
+
+<!-- ─────────────────────── before ─────────────────────── -->
+
+**Before systems:** a data-science internship at the Texas Department of Family and
+Protective Services, running survival analysis on foster-care placement data across
+254 counties and presenting the findings to 40+ stakeholders.
 
 <!-- ─────────────────────── expandables ────────────────── -->
 
 <details>
-<summary><code>cat method.md</code></summary>
+<summary><code>cat how-i-got-here.md</code></summary>
 
 <br>
 
-I like to understand the mechanics underneath a system before I build
-anything on top of it. First I built a Redis-style server in C++ using
-raw TCP sockets, a `poll()` event loop, and a hashtable that migrates a
-bounded number of nodes per operation instead of stalling to rehash.
-Pipelined over loopback it holds around 1M GET ops/sec on a single
-thread, and its worst insert during a resize stays under a millisecond
-where `std::unordered_map` freezes for ~240ms at four million keys.
-
-I tend to choose these problems because nothing else lights up my head
-the same way, and because of where I think the next decade goes. Two
-things will matter most: intelligence itself, and getting it to
-everyone. Models get the attention, but a model nobody can reach is a
-research result. Serving one to billions of people is a storage,
-replication, and coordination problem. That is infrastructure, and it is
-the layer I want to build on.
-
-Before the systems work I did machine learning and data analysis. At the
-Texas Department of Family and Protective Services I ran survival
-analysis on foster-care placement data across 254 counties and presented
-the findings to 40+ stakeholders.
-
-It took me a while to work this way. I spent two years building from
-tutorials, which made me feel fast and left me empty: I was decorating
-the top floors of a building whose foundation I had never seen. A C++
-course fixed that: pointers, memory, the machine underneath. I went down
-the stack and stayed there, which is why every project here starts at
-the bottom instead of at a library.
+I spent two years building from tutorials, which made me feel fast and left me
+empty: I was decorating the top floors of a building whose foundation I had never
+seen. A C++ course fixed that — pointers, memory, the machine underneath. I went
+down the stack and stayed there, which is why every project here starts at the
+bottom instead of at a library.
 
 </details>
 
@@ -56,8 +54,9 @@ the bottom instead of at a library.
 
 <br>
 
-Away from the keyboard I play soccer and go mountain biking. The avatar
-is Senku, from *Dr. Stone*. Favorite book: *The Count of Monte Cristo*.
+Away from the keyboard I play soccer and go mountain biking. The avatar is Senku,
+from *Dr. Stone*. Favorite book: *The Count of Monte Cristo*.
+
 
 </details>
 
