@@ -3,7 +3,7 @@
 
 <!-- ──────────────────────── about ─────────────────────── -->
 
-I build distributed systems from the socket up — consensus, storage, replication.
+I build systems from ground up.
 
 The next decade needs two things: intelligence, and infrastructure big enough to
 hold it. A model nobody can reach is just a research result. I want to build the
