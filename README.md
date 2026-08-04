@@ -3,7 +3,7 @@
 
 <!-- ──────────────────────── about ─────────────────────── -->
 
-I build systems from ground up.
+I love to build systems from ground up.
 
 The next decade needs two things: intelligence, and infrastructure big enough to
 hold it. A model nobody can reach is just a research result. I want to build the
@@ -16,9 +16,9 @@ layer that gets it to everyone.
 **[raft-kv](https://github.com/DahalAb1/raft-kv)** · Go — Raft implemented from
 [the paper](https://raft.github.io/raft.pdf): leader election, log replication,
 crash persistence, and snapshots, with a linearizable key/value store on top.
-~1,700 lines, every layer validated with 100-run test gauntlets. The hardest bugs
-failed at **14%, 9%, and 2.5%** rather than deterministically, so they had to be
-found by measurement instead of by reading.
+~1,700 lines. The hardest bugs were nondeterministic, surfacing in 14%, 9%, and 
+2.5% of runs, so I found them with 100-run gauntlets and used the failure rate 
+itself as the diagnostic.
 [**Watch a cluster elect a leader →**](https://dahalab1.github.io/raft-demo/)
 
 **[Redis](https://github.com/DahalAb1/Redis)** · C++ — a Redis-style server built up
