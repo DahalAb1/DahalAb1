@@ -21,12 +21,13 @@ crash persistence, and snapshots, with a linearizable key/value store on top.
 itself as the diagnostic.
 [**Watch a cluster elect a leader →**](https://dahalab1.github.io/raft-demo/)
 
-**[Redis](https://github.com/DahalAb1/Redis)** · C++ — a Redis-style server built up
-from `socket(2)`: non-blocking I/O, a `poll()` event loop, and a hashtable that
-migrates a bounded number of nodes per operation instead of stalling to rehash.
-Pipelined over loopback it holds **1M GET ops/sec** on a single thread, and its
-worst insert during a resize stays **under 1ms**, where `std::unordered_map`
-freezes for **~240ms** at four million keys.
+**[Redis](https://github.com/DahalAb1/Redis)** · C++ — a Redis-style server
+written directly against `socket(2)`, no frameworks: non-blocking I/O, a
+`poll()` event loop, and a hashtable that rehashes incrementally, migrating a
+bounded number of nodes per operation instead of stalling. Pipelined over
+loopback it sustains **1M GET ops/sec** on a single thread. Its worst insert
+during a resize stays **under 1ms**, against **~240ms** for
+`std::unordered_map` at four million keys.
 
 <!-- ─────────────────────── before ─────────────────────── -->
 
