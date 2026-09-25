@@ -26,9 +26,7 @@ The project gave me a much clearer picture of where server performance actually 
 
 <!-- ─────────────────────── before ─────────────────────── -->
 
-**Before systems:** a data-science internship at the Texas Department of Family and
-Protective Services, running survival analysis on foster-care placement data across
-254 counties and presenting the findings to 40+ stakeholders.
+**Before systems:** I interned as a Data Analyst at the Texas Department of Family and Protective Services, where I worked with four years of foster-care placement data from all 254 Texas counties. I built the data pipeline, developed a survival model to study placement stability, and presented the findings to more than forty stakeholders and the director. What I liked most about the work was that the analysis did not end with a model or a metric—the results changed what the team wanted to investigate next. It was my first experience seeing technical work become genuinely useful to the people making decisions from it.
 
 <!-- ─────────────────────── expandables ────────────────── -->
 
