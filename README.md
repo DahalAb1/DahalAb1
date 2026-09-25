@@ -30,22 +30,6 @@ The project gave me a much clearer picture of where server performance actually 
 
 <!-- ─────────────────────── expandables ────────────────── -->
 
-<details>
-<summary><code>cat how-i-got-here.md</code></summary>
-
-<br>
-
-I spent two years building from tutorials, which made me feel fast and left me
-empty: I was decorating the top floors of a building whose foundation I had never
-seen. A C++ course fixed that — pointers, memory, the machine underneath. I went
-down the stack and stayed there, which is why every project here starts at the
-bottom instead of at a library.
-
-</details>
-
-<details>
-<summary><code>cat ~/.profile</code></summary>
-
 <br>
 
 Away from engineering, I play soccer and go mountain biking—mostly because I like things that are physical, fast, and force me to react instead of think everything through.
