@@ -5,7 +5,12 @@
 
 I love building systems from the ground up.
 
-I’m drawn to the layer underneath AI: the distributed systems, networking, storage, and compute infrastructure that determine whether a powerful model can actually serve millions of people reliably. I like problems where performance and reliability come from understanding what is happening all the way down the stack. That is the kind of engineering I want to get very good at.
+I’m especially drawn to distributed systems because the way we use software is changing quickly. More of what we do is beginning to depend on increasingly capable models and much larger amounts of computation, but all of that still has to run on real machines, move across networks, store state, recover from failures, and respond fast enough that people can actually use it.
+
+I think there is a lot of valuable work to be done in improving that layer. That is what has pulled me toward distributed systems, networking, storage, and infrastructure. I enjoy understanding how those pieces work, but more importantly, I want to learn how to build them well enough that other people can depend on them.
+
+The projects I’ve built so far have been my way of getting closer to that kind of work. I want to keep going deeper and eventually work on systems operating at a scale I have not had the chance to experience yet.
+
 
 <!-- ─────────────────────── projects ───────────────────── -->
 
