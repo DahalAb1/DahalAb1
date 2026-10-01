@@ -29,22 +29,6 @@ I also built the hash table used to store keys. Normally, when a hash table grow
 The project gave me a much clearer picture of where server performance actually comes from: how connections are scheduled, how data is buffered, how memory is organized, and how a seemingly small data-structure decision can turn into a visible latency spike for a client.
 
 
-<!-- ─────────────────────── before ─────────────────────── -->
-
-**Before systems:** I interned as a Data Analyst at the Texas Department of Family and Protective Services, where I worked with four years of foster-care placement data from all 254 Texas counties. I built the data pipeline, developed a survival model to study placement stability, and presented the findings to more than forty stakeholders and the director. What I liked most about the work was that the analysis did not end with a model or a metric—the results changed what the team wanted to investigate next. It was my first experience seeing technical work become genuinely useful to the people making decisions from it.
-
-<!-- ─────────────────────── expandables ────────────────── -->
-
-<br>
-
-Away from engineering, I play soccer and go mountain biking—mostly because I like things that are physical, fast, and force me to react instead of think everything through.
-
-My GitHub avatar is Senku from *Dr. Stone*. What I like about him is not just that he is intelligent, but that he tries to understand things from first principles and then uses that understanding to build. That way of thinking is a large part of what drew me toward systems: I enjoy taking abstractions apart until I understand what is underneath them.
-
-My favorite book is *The Count of Monte Cristo*. What stayed with me was not simply the main character's transformation, but how much of it comes from suffering, knowledge, patience, and the changing way he sees other people and himself. I like that the novel does not reduce him to a straightforward hero. He becomes more capable as the story progresses, but also more complicated, and that tension is what made the book feel human to me.
-
-</details>
-
 <!-- ─────────────────────── sign-off ───────────────────── -->
 
 ```
