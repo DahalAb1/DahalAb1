@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="228" viewBox="0 0 360 228" role="img" aria-labelledby="title desc" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif">
+<title id="title">A Raft cluster elects a new leader</title>
+<desc id="desc">Illustration, not a live cluster. A leads; A fails; B and C form a majority and elect B. The animated version plays once and holds the recovered state.</desc>
+<style>.recovered { opacity: 1; }</style>
+<text x="8" y="20" fill="#59636e" font-size="12" font-weight="600" text-anchor="start">RAFT / THREE-SERVER EXAMPLE</text>
+<g class="phase recovered">
+<text x="8" y="51" fill="#1f2328" font-size="22" font-weight="600" text-anchor="start">B wins a majority with C.</text>
+<path d="M114.0 119 H128.0" fill="none" stroke="#d1d9e0" stroke-width="2" stroke-dasharray="3 4"/>
+<path d="M232.0 119 H246.0" fill="none" stroke="#116b45" stroke-width="2"/>
+<rect x="14.0" y="83" width="96" height="72" rx="6" fill="#fff0f1" stroke="#b42335" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="62" y="112" fill="#b42335" font-size="22" font-weight="600" text-anchor="middle">A</text>
+<text x="62" y="136" fill="#b42335" font-size="15" font-weight="400" text-anchor="middle">Offline</text>
+<path d="M58 70 l8 8 m0 -8 l-8 8" stroke="#b42335" stroke-width="2"/>
+<rect x="132.0" y="83" width="96" height="72" rx="6" fill="#dafbe1" stroke="#116b45" stroke-width="1.5"/>
+<text x="180" y="112" fill="#116b45" font-size="22" font-weight="600" text-anchor="middle">B</text>
+<text x="180" y="136" fill="#116b45" font-size="15" font-weight="400" text-anchor="middle">Leader</text>
+<path d="M167 74 h26" stroke="#116b45" stroke-width="4" stroke-linecap="round"/>
+<rect x="250.0" y="83" width="96" height="72" rx="6" fill="#f6f8fa" stroke="#59636e" stroke-width="1.5"/>
+<text x="298" y="112" fill="#59636e" font-size="22" font-weight="600" text-anchor="middle">C</text>
+<text x="298" y="136" fill="#59636e" font-size="15" font-weight="400" text-anchor="middle">Follower</text>
+<text x="62" y="191" fill="#59636e" font-size="12" font-weight="600" text-anchor="middle">01</text>
+<text x="62" y="212" fill="#59636e" font-size="15" font-weight="400" text-anchor="middle">Running</text>
+<text x="180" y="191" fill="#59636e" font-size="12" font-weight="600" text-anchor="middle">02</text>
+<text x="180" y="212" fill="#59636e" font-size="15" font-weight="400" text-anchor="middle">Leader fails</text>
+<text x="298" y="191" fill="#116b45" font-size="12" font-weight="600" text-anchor="middle">03</text>
+<text x="298" y="212" fill="#116b45" font-size="15" font-weight="600" text-anchor="middle">New leader</text>
+</g>
+</svg>

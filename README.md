@@ -1,46 +1,76 @@
-<!-- ──────────────────────── hero ──────────────────────── -->
-<img src="assets/terminal.svg?v=2" width="880" alt="Terminal session: Abhinesh Dahal, CS and Applied Math student at Texas State; focused on distributed systems and software engineering; projects include raft-kv in Go and a Redis-style server in C++, both built from the syscalls up; seeking a Summer 2027 software engineering internship">
+# Abhinesh Dahal
 
-<!-- ──────────────────────── about ─────────────────────── -->
+I study Computer Science and Applied Mathematics at Texas State University. I'm drawn to the work that makes software dependable: keeping servers in agreement, handling connections, and storing data without making people wait. I build systems from scratch to understand where that dependability comes from.
 
-I love building systems from the ground up.
+**Seeking a Summer 2027 software engineering internship.**<br>
+[LinkedIn](https://linkedin.com/in/abhinesh-dahal) · [Email](mailto:dahalabhinesh1@gmail.com)
 
-I’m especially drawn to distributed systems because the way we use software is changing quickly. More of what we do is beginning to depend on increasingly capable models and much larger amounts of computation, but all of that still has to run on real machines, move across networks, store state, recover from failures, and respond fast enough that people can actually use it.
+## Selected Work
 
-I think there is a lot of valuable work to be done in improving that layer. That is what has pulled me toward distributed systems, networking, storage, and infrastructure. I enjoy understanding how those pieces work, but more importantly, I want to learn how to build them well enough that other people can depend on them.
+### raft-kv · Go
 
-The projects I’ve built so far have been my way of getting closer to that kind of work. I want to keep going deeper and eventually work on systems operating at a scale I have not had the chance to experience yet.
+**A key/value store replicated across servers.**
 
+A server can fail while the others are still waiting to hear from it. I built a replicated key/value store to understand how those remaining machines agree on what happens next.
 
-<!-- ─────────────────────── projects ───────────────────── -->
+Starting with the [Raft paper](https://raft.github.io/raft.pdf), I implemented leader election, log replication, crash persistence, and snapshots, then built a linearizable key/value store on top.
 
-### Projects
+<p>
+<picture>
+  <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/raft-election-static-compact-dark.svg">
+  <source media="(prefers-reduced-motion: reduce) and (max-width: 600px)" srcset="assets/raft-election-static-compact-light.svg">
+  <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="assets/raft-election-static-dark.svg">
+  <source media="(prefers-reduced-motion: reduce)" srcset="assets/raft-election-static-light.svg">
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/raft-election-compact-dark.svg">
+  <source media="(max-width: 600px)" srcset="assets/raft-election-compact-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/raft-election-dark.svg">
+  <img src="assets/raft-election-light.svg" width="720" alt="Illustrated Raft election: A leads a three-server cluster, A fails, then B wins a majority with C and becomes the new leader. A remains offline.">
+</picture>
+</p>
 
-**[raft-kv](https://github.com/DahalAb1/raft-kv)** · Go — I implemented Raft from the [original paper](https://raft.github.io/raft.pdf), including leader election, log replication, crash persistence, and snapshots, then built a linearizable key/value store on top. The project is about 1,700 lines of Go. The hardest part was dealing with failures that depended on timing: the same test could pass several times and then fail because two nodes timed out in a different order, a message arrived later than expected, or a server crashed at the wrong moment. Debugging those failures forced me to stop thinking about the program as one predictable sequence of instructions and instead reason about many machines progressing independently while the network changes the order in which they observe events. That shift in thinking was the most valuable part of the project and gave me a much better understanding of why building reliable distributed systems is difficult.
+[**Watch a leader election**](https://dahalab1.github.io/raft-demo/) · [Explore the code](https://github.com/DahalAb1/raft-kv)
 
-[**Watch a cluster elect a leader →**](https://dahalab1.github.io/raft-demo/)
+<details>
+<summary>What timing-dependent failures taught me</summary>
 
-**[Redis](https://github.com/DahalAb1/Redis)** · C++ — I built a Redis-style server from scratch to understand what actually happens between a client sending a request and a server returning a value. Instead of using a networking framework, I worked directly with `socket()` and built the loop that accepts connections, reads requests, executes commands, and sends responses.
+The hardest bugs did not fail on command. A test could pass several times, then break because two servers timed out in a different order or a reply arrived after a new election.
 
-A major challenge was allowing one thread to handle many clients without getting stuck waiting for any one of them. I used non-blocking sockets with `poll()`, so the server can ask the operating system which connections are ready and only work on those connections. This turned concepts like event-driven servers and asynchronous I/O from abstractions into something I could reason about directly.
+Debugging them meant tracing what each machine knew at the moment it acted. Repeated test runs helped me find patterns that a single passing run concealed. I came away with a different way of reasoning about correctness: an operation has to remain safe even when the world changes before its reply comes back.
 
-I also built the hash table used to store keys. Normally, when a hash table grows, moving millions of entries into a larger table can make one operation unexpectedly slow. Instead, mine moves a small amount of data at a time while normal requests continue. At four million keys, the worst insert during this resizing process stays under **1 ms**, compared with about **240 ms** for `std::unordered_map` in my benchmark. With pipelined requests over loopback, the server sustains about **1M GET operations per second on a single thread**.
+The implementation uses MIT 6.5840's lab structure; the course-provided harness and tests are excluded from the public repository. The companion demo runs the implementation with its own transport.
 
-The project gave me a much clearer picture of where server performance actually comes from: how connections are scheduled, how data is buffered, how memory is organized, and how a seemingly small data-structure decision can turn into a visible latency spike for a client.
+</details>
 
+### Redis-style server · C++
 
-<!-- ─────────────────────── sign-off ───────────────────── -->
+**An in-memory database, from the socket to the stored value.**
 
-```
-~ % grep lesson notes/raft.md
-stay with a problem long enough and the shape of it appears
-```
+A fast server can still make a client wait. Working through *Build Your Own Redis*, I implemented a server with non-blocking sockets, a `poll()` event loop, and an incrementally resized hash table. I then wrote benchmarks to investigate where delays remained.
 
-<!-- ────────────────────────  contact ─────────────────── -->
+One revealing measurement was the slowest insert as the table grew to four million keys:
 
-[LinkedIn](https://linkedin.com/in/abhinesh-dahal) ·
-[dahalabhinesh1@gmail.com](mailto:dahalabhinesh1@gmail.com)
+<p>
+<picture>
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/resize-latency-compact-dark.svg">
+  <source media="(max-width: 600px)" srcset="assets/resize-latency-compact-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/resize-latency-dark.svg">
+  <img src="assets/resize-latency-light.svg" width="720" alt="Worst single-insert latency at four million keys: incremental HMap, 0.429 milliseconds; std::unordered_map, 241 milliseconds. In-process benchmark on Apple M2 with -O2; lower is better.">
+</picture>
+</p>
 
-<!-- ─────────────────────── status bar ─────────────────── -->
+These are in-process data-structure measurements, not network response times. Custom entries were prepared before timing; `std::unordered_map` was not pre-reserved.
 
-<img src="assets/statusbar.svg" width="880" alt="Abhinesh Dahal · Go, C++, Python · open to Summer 2027">
+[**Read the benchmarks**](https://github.com/DahalAb1/Redis/tree/main/bench#incremental-resize-vs-stdunordered_map-tail-latency) · [Explore the code](https://github.com/DahalAb1/Redis)
+
+<details>
+<summary>Why resizing a hash table can delay a request</summary>
+
+When a hash table grows, moving all its entries at once can turn one ordinary insert into a long pause. In a single-threaded server, other clients wait behind that operation.
+
+This implementation spreads the migration across subsequent operations, moving at most 128 nodes each time. That limits the migration work per operation, although allocating the new bucket array can still cause a smaller spike.
+
+The comparison measures the worst insert, not average performance. The custom table's entries and hashes are prepared outside the timed region, while `std::unordered_map::emplace` includes allocation and a duplicate-key check. The benchmark repository documents those differences and how to reproduce the results.
+
+The server architecture and data-structure design follow James Smith's [*Build Your Own Redis*](https://build-your-own.org/redis/). The benchmarks, measurements, and analysis are my own.
+
+</details>

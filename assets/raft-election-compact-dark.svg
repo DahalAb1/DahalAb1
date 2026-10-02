@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="228" viewBox="0 0 360 228" role="img" aria-labelledby="title desc" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif">
+<title id="title">A Raft cluster elects a new leader</title>
+<desc id="desc">Illustration, not a live cluster. A leads; A fails; B and C form a majority and elect B. The animated version plays once and holds the recovered state.</desc>
+<style>
+          .phase { opacity: 0; }
+          .recovered { opacity: 1; }
+          @media (prefers-reduced-motion: no-preference) {
+            .running { animation: phase-running 4.8s step-end 1 both; }
+            .failed { animation: phase-failed 4.8s step-end 1 both; }
+            .recovered { animation: phase-recovered 4.8s step-end 1 both; }
+          }
+          @keyframes phase-running { 0% { opacity: 1; } 33.333%, 100% { opacity: 0; } }
+          @keyframes phase-failed { 0% { opacity: 0; } 33.333% { opacity: 1; } 66.667%, 100% { opacity: 0; } }
+          @keyframes phase-recovered { 0% { opacity: 0; } 66.667%, 100% { opacity: 1; } }
+        </style>
+<text x="8" y="20" fill="#a6b0bb" font-size="12" font-weight="600" text-anchor="start">RAFT / THREE-SERVER EXAMPLE</text>
+<g class="phase running">
+<text x="8" y="51" fill="#f0f6fc" font-size="22" font-weight="600" text-anchor="start">A leads the cluster.</text>
+<path d="M114.0 119 H128.0" fill="none" stroke="#79c0ff" stroke-width="2"/>
+<path d="M232.0 119 H246.0" fill="none" stroke="#79c0ff" stroke-width="2"/>
+<rect x="14.0" y="83" width="96" height="72" rx="6" fill="#122c46" stroke="#79c0ff" stroke-width="1.5"/>
+<text x="62" y="112" fill="#79c0ff" font-size="22" font-weight="600" text-anchor="middle">A</text>
+<text x="62" y="136" fill="#79c0ff" font-size="15" font-weight="400" text-anchor="middle">Leader</text>
+<path d="M49 74 h26" stroke="#79c0ff" stroke-width="4" stroke-linecap="round"/>
+<rect x="132.0" y="83" width="96" height="72" rx="6" fill="#151b23" stroke="#a6b0bb" stroke-width="1.5"/>
+<text x="180" y="112" fill="#a6b0bb" font-size="22" font-weight="600" text-anchor="middle">B</text>
+<text x="180" y="136" fill="#a6b0bb" font-size="15" font-weight="400" text-anchor="middle">Follower</text>
+<rect x="250.0" y="83" width="96" height="72" rx="6" fill="#151b23" stroke="#a6b0bb" stroke-width="1.5"/>
+<text x="298" y="112" fill="#a6b0bb" font-size="22" font-weight="600" text-anchor="middle">C</text>
+<text x="298" y="136" fill="#a6b0bb" font-size="15" font-weight="400" text-anchor="middle">Follower</text>
+<text x="62" y="191" fill="#79c0ff" font-size="12" font-weight="600" text-anchor="middle">01</text>
+<text x="62" y="212" fill="#79c0ff" font-size="15" font-weight="600" text-anchor="middle">Running</text>
+<text x="180" y="191" fill="#a6b0bb" font-size="12" font-weight="600" text-anchor="middle">02</text>
+<text x="180" y="212" fill="#a6b0bb" font-size="15" font-weight="400" text-anchor="middle">Leader fails</text>
+<text x="298" y="191" fill="#a6b0bb" font-size="12" font-weight="600" text-anchor="middle">03</text>
+<text x="298" y="212" fill="#a6b0bb" font-size="15" font-weight="400" text-anchor="middle">New leader</text>
+</g>
+<g class="phase failed">
+<text x="8" y="51" fill="#f0f6fc" font-size="22" font-weight="600" text-anchor="start">A stops responding.</text>
+<path d="M114.0 119 H128.0" fill="none" stroke="#3d444d" stroke-width="2" stroke-dasharray="3 4"/>
+<path d="M232.0 119 H246.0" fill="none" stroke="#3d444d" stroke-width="2" stroke-dasharray="3 4"/>
+<rect x="14.0" y="83" width="96" height="72" rx="6" fill="#361c26" stroke="#ff9ba8" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="62" y="112" fill="#ff9ba8" font-size="22" font-weight="600" text-anchor="middle">A</text>
+<text x="62" y="136" fill="#ff9ba8" font-size="15" font-weight="400" text-anchor="middle">Offline</text>
+<path d="M58 70 l8 8 m0 -8 l-8 8" stroke="#ff9ba8" stroke-width="2"/>
+<rect x="132.0" y="83" width="96" height="72" rx="6" fill="#151b23" stroke="#a6b0bb" stroke-width="1.5"/>
+<text x="180" y="112" fill="#a6b0bb" font-size="22" font-weight="600" text-anchor="middle">B</text>
+<text x="180" y="136" fill="#a6b0bb" font-size="15" font-weight="400" text-anchor="middle">Follower</text>
+<rect x="250.0" y="83" width="96" height="72" rx="6" fill="#151b23" stroke="#a6b0bb" stroke-width="1.5"/>
+<text x="298" y="112" fill="#a6b0bb" font-size="22" font-weight="600" text-anchor="middle">C</text>
+<text x="298" y="136" fill="#a6b0bb" font-size="15" font-weight="400" text-anchor="middle">Follower</text>
+<text x="62" y="191" fill="#a6b0bb" font-size="12" font-weight="600" text-anchor="middle">01</text>
+<text x="62" y="212" fill="#a6b0bb" font-size="15" font-weight="400" text-anchor="middle">Running</text>
+<text x="180" y="191" fill="#ff9ba8" font-size="12" font-weight="600" text-anchor="middle">02</text>
+<text x="180" y="212" fill="#ff9ba8" font-size="15" font-weight="600" text-anchor="middle">Leader fails</text>
+<text x="298" y="191" fill="#a6b0bb" font-size="12" font-weight="600" text-anchor="middle">03</text>
+<text x="298" y="212" fill="#a6b0bb" font-size="15" font-weight="400" text-anchor="middle">New leader</text>
+</g>
+<g class="phase recovered">
+<text x="8" y="51" fill="#f0f6fc" font-size="22" font-weight="600" text-anchor="start">B wins a majority with C.</text>
+<path d="M114.0 119 H128.0" fill="none" stroke="#3d444d" stroke-width="2" stroke-dasharray="3 4"/>
+<path d="M232.0 119 H246.0" fill="none" stroke="#7ee2a8" stroke-width="2"/>
+<rect x="14.0" y="83" width="96" height="72" rx="6" fill="#361c26" stroke="#ff9ba8" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="62" y="112" fill="#ff9ba8" font-size="22" font-weight="600" text-anchor="middle">A</text>
+<text x="62" y="136" fill="#ff9ba8" font-size="15" font-weight="400" text-anchor="middle">Offline</text>
+<path d="M58 70 l8 8 m0 -8 l-8 8" stroke="#ff9ba8" stroke-width="2"/>
+<rect x="132.0" y="83" width="96" height="72" rx="6" fill="#122f24" stroke="#7ee2a8" stroke-width="1.5"/>
+<text x="180" y="112" fill="#7ee2a8" font-size="22" font-weight="600" text-anchor="middle">B</text>
+<text x="180" y="136" fill="#7ee2a8" font-size="15" font-weight="400" text-anchor="middle">Leader</text>
+<path d="M167 74 h26" stroke="#7ee2a8" stroke-width="4" stroke-linecap="round"/>
+<rect x="250.0" y="83" width="96" height="72" rx="6" fill="#151b23" stroke="#a6b0bb" stroke-width="1.5"/>
+<text x="298" y="112" fill="#a6b0bb" font-size="22" font-weight="600" text-anchor="middle">C</text>
+<text x="298" y="136" fill="#a6b0bb" font-size="15" font-weight="400" text-anchor="middle">Follower</text>
+<text x="62" y="191" fill="#a6b0bb" font-size="12" font-weight="600" text-anchor="middle">01</text>
+<text x="62" y="212" fill="#a6b0bb" font-size="15" font-weight="400" text-anchor="middle">Running</text>
+<text x="180" y="191" fill="#a6b0bb" font-size="12" font-weight="600" text-anchor="middle">02</text>
+<text x="180" y="212" fill="#a6b0bb" font-size="15" font-weight="400" text-anchor="middle">Leader fails</text>
+<text x="298" y="191" fill="#7ee2a8" font-size="12" font-weight="600" text-anchor="middle">03</text>
+<text x="298" y="212" fill="#7ee2a8" font-size="15" font-weight="600" text-anchor="middle">New leader</text>
+</g>
+</svg>
