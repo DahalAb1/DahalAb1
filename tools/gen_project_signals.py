@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate compact project diagrams. Motion ends within five seconds."""
+"""Generate compact diagrams: Raft repeats with a long pause; others settle."""
 from pathlib import Path
 
 OUT = Path(__file__).resolve().parents[1] / 'assets'
@@ -65,6 +65,8 @@ def render(kind, dark, animated):
         if animated:
             # The default SVG is the final state, including without CSS animation.
             # Opacity intervals keep the text changes discrete and non-overlapping.
+            # Fit the original 4.8-second sequence into a 12-second cycle,
+            # leaving 7.2 seconds to hold the result before the next election.
             intervals = {
                 'initial-role': (0, 20), 'offline-role': (20, 100),
                 'follower-role': (0, 38), 'candidate-role': (38, 84),
@@ -73,29 +75,31 @@ def render(kind, dark, animated):
                 'stage-vote': (38, 84), 'stage-done': (84, 100),
             }
             for name, (start, end) in intervals.items():
+                start *= .4
+                end = 100 if end == 100 else end * .4
                 keys = ('0%{opacity:1;}' if start == 0 else
                         f'0%,{start-.01}%{{opacity:0;}}{start}%{{opacity:1;}}')
                 keys += ('100%{opacity:1;}' if end == 100 else
                          f'{end-.01}%{{opacity:1;}}{end}%,100%{{opacity:0;}}')
-                extra_motion += f'.{name}{{animation:{name} 4.8s linear 1;}}@keyframes {name}{{{keys}}}'
+                extra_motion += f'.{name}{{animation:{name} 12s linear infinite;}}@keyframes {name}{{{keys}}}'
             extra_motion += '''
-            .old-server { animation:disconnect 4.8s linear 1; }
-            .vote-request { animation:ask-vote 4.8s ease-in-out 1; }
-            .vote-reply { animation:grant-vote 4.8s ease-in-out 1; }
+            .old-server { animation:disconnect 12s linear infinite; }
+            .vote-request { animation:ask-vote 12s ease-in-out infinite; }
+            .vote-reply { animation:grant-vote 12s ease-in-out infinite; }
             @keyframes disconnect {
-              0%,19.99% { opacity:1; } 20%,100% { opacity:.45; }
+              0%,7.99% { opacity:1; } 8%,100% { opacity:.45; }
             }
             @keyframes ask-vote {
-              0%,40% { opacity:0; transform:translateX(0); }
-              44% { opacity:1; transform:translateX(0); }
-              57% { opacity:1; transform:translate(var(--dx),var(--dy)); }
-              60%,100% { opacity:0; transform:translate(var(--dx),var(--dy)); }
+              0%,16% { opacity:0; transform:translateX(0); }
+              17.6% { opacity:1; transform:translateX(0); }
+              22.8% { opacity:1; transform:translate(var(--dx),var(--dy)); }
+              24%,100% { opacity:0; transform:translate(var(--dx),var(--dy)); }
             }
             @keyframes grant-vote {
-              0%,61% { opacity:0; transform:translateX(0); }
-              64% { opacity:1; transform:translateX(0); }
-              77% { opacity:1; transform:translate(var(--dx),var(--dy)); }
-              80%,100% { opacity:0; transform:translate(var(--dx),var(--dy)); }
+              0%,24.4% { opacity:0; transform:translateX(0); }
+              25.6% { opacity:1; transform:translateX(0); }
+              30.8% { opacity:1; transform:translate(var(--dx),var(--dy)); }
+              32%,100% { opacity:0; transform:translate(var(--dx),var(--dy)); }
             }
             @media(prefers-reduced-motion:reduce) {
               .old-server,.vote-request,.vote-reply,
