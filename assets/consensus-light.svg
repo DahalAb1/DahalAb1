@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="76" viewBox="0 0 400 76" role="img" aria-labelledby="title desc">
-  <title id="title">Raft replication</title><desc id="desc">A leader sends a write to two followers. Schematic illustration.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="156" viewBox="0 0 400 156" role="img" aria-labelledby="title desc">
+  <title id="title">Raft leader failover</title><desc id="desc">In this four-server illustration, A goes offline. After an election timeout, B requests votes from C and D. With its own vote and both replies, B becomes leader with a three-of-four majority. A stays offline. Schematic illustration.</desc>
   <style>
     .packet { opacity:0; animation:travel 1.8s ease-in-out 2; }
     @keyframes travel {
@@ -9,7 +9,63 @@
       84%,100% { opacity:0; transform:translate(var(--dx),var(--dy)); }
     }
     @media(prefers-reduced-motion:reduce) { .packet { animation:none; } }
-    </style>
-  <rect width="400" height="76" rx="8" fill="#f6faf9"/>
-  <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13"><path d="M70 32 L220 17" stroke="#cdded7" stroke-width="1.5"/><path d="M70 32 L220 47" stroke="#cdded7" stroke-width="1.5"/><circle class="packet" cx="70" cy="32" r="3" fill="#167b66" style="--dx:150px;--dy:-15px;animation-delay:0s"/><circle class="packet" cx="70" cy="32" r="3" fill="#167b66" style="--dx:150px;--dy:15px;animation-delay:0s"/><circle cx="70" cy="32" r="10" fill="#deeee7" stroke="#167b66" stroke-width="1.5"/><circle cx="220" cy="17" r="6" fill="#deeee7" stroke="#167b66" stroke-width="1.5"/><circle cx="220" cy="47" r="6" fill="#deeee7" stroke="#167b66" stroke-width="1.5"/><text x="70" y="65" text-anchor="middle" fill="#526f68">leader</text><text x="300" y="37" text-anchor="middle" fill="#526f68">two followers</text></g>
+    .initial-role{animation:initial-role 4.8s linear 1;}@keyframes initial-role{0%{opacity:1;}19.99%{opacity:1;}20%,100%{opacity:0;}}.offline-role{animation:offline-role 4.8s linear 1;}@keyframes offline-role{0%,19.99%{opacity:0;}20%{opacity:1;}100%{opacity:1;}}.follower-role{animation:follower-role 4.8s linear 1;}@keyframes follower-role{0%{opacity:1;}37.99%{opacity:1;}38%,100%{opacity:0;}}.candidate-role{animation:candidate-role 4.8s linear 1;}@keyframes candidate-role{0%,37.99%{opacity:0;}38%{opacity:1;}83.99%{opacity:1;}84%,100%{opacity:0;}}.leader-role{animation:leader-role 4.8s linear 1;}@keyframes leader-role{0%,83.99%{opacity:0;}84%{opacity:1;}100%{opacity:1;}}.new-leader{animation:new-leader 4.8s linear 1;}@keyframes new-leader{0%,83.99%{opacity:0;}84%{opacity:1;}100%{opacity:1;}}.stage-start{animation:stage-start 4.8s linear 1;}@keyframes stage-start{0%{opacity:1;}19.99%{opacity:1;}20%,100%{opacity:0;}}.stage-timeout{animation:stage-timeout 4.8s linear 1;}@keyframes stage-timeout{0%,19.99%{opacity:0;}20%{opacity:1;}37.99%{opacity:1;}38%,100%{opacity:0;}}.stage-vote{animation:stage-vote 4.8s linear 1;}@keyframes stage-vote{0%,37.99%{opacity:0;}38%{opacity:1;}83.99%{opacity:1;}84%,100%{opacity:0;}}.stage-done{animation:stage-done 4.8s linear 1;}@keyframes stage-done{0%,83.99%{opacity:0;}84%{opacity:1;}100%{opacity:1;}}
+            .old-server { animation:disconnect 4.8s linear 1; }
+            .vote-request { animation:ask-vote 4.8s ease-in-out 1; }
+            .vote-reply { animation:grant-vote 4.8s ease-in-out 1; }
+            @keyframes disconnect {
+              0%,19.99% { opacity:1; } 20%,100% { opacity:.45; }
+            }
+            @keyframes ask-vote {
+              0%,40% { opacity:0; transform:translateX(0); }
+              44% { opacity:1; transform:translateX(0); }
+              57% { opacity:1; transform:translate(var(--dx),var(--dy)); }
+              60%,100% { opacity:0; transform:translate(var(--dx),var(--dy)); }
+            }
+            @keyframes grant-vote {
+              0%,61% { opacity:0; transform:translateX(0); }
+              64% { opacity:1; transform:translateX(0); }
+              77% { opacity:1; transform:translate(var(--dx),var(--dy)); }
+              80%,100% { opacity:0; transform:translate(var(--dx),var(--dy)); }
+            }
+            @media(prefers-reduced-motion:reduce) {
+              .old-server,.vote-request,.vote-reply,
+              .initial-role,.offline-role,.follower-role,.candidate-role,.leader-role,
+              .new-leader,.stage-start,.stage-timeout,.stage-vote,.stage-done { animation:none; }
+            }
+            </style>
+  <rect width="400" height="156" rx="8" fill="#f6faf9"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13"><g font-size="10" letter-spacing="1"><text x="200" y="16" text-anchor="middle" fill="#526f68">FOUR SERVERS · MAJORITY = 3</text></g>
+        <path d="M92 74 H144" stroke="#cdded7" stroke-width="1.5" stroke-dasharray="3 4"/>
+        <g fill="none" stroke="#cdded7" stroke-width="1.5">
+          <path d="M234 65 L300 39 M300 49 L234 75"/>
+          <path d="M234 81 L300 101 M300 111 L234 91"/>
+        </g>
+        <g class="old-server" opacity=".45">
+          <rect x="16" y="54" width="76" height="42" rx="7" fill="#f6faf9" stroke="#cdded7"/>
+          <text x="54" y="71" text-anchor="middle" fill="#526f68" font-size="14" font-weight="600">A</text>
+          <g class="initial-role" opacity="0"><text x="54" y="88" text-anchor="middle" fill="#526f68">leader</text></g>
+          <g class="offline-role"><text x="54" y="88" text-anchor="middle" fill="#526f68">offline</text></g>
+        </g>
+        <rect x="144" y="54" width="90" height="42" rx="7" fill="#f6faf9" stroke="#cdded7"/>
+        <rect class="new-leader" x="144" y="54" width="90" height="42" rx="7" fill="#deeee7" stroke="#167b66" stroke-width="1.5"/>
+        <text x="189" y="71" text-anchor="middle" fill="#167b66" font-size="14" font-weight="600">B</text>
+        <g class="follower-role" opacity="0"><text x="189" y="88" text-anchor="middle" fill="#526f68">follower</text></g>
+        <g class="candidate-role" opacity="0"><text x="189" y="88" text-anchor="middle" fill="#526f68">candidate</text></g>
+        <g class="leader-role"><text x="189" y="88" text-anchor="middle" fill="#526f68">leader</text></g>
+        <rect x="300" y="25" width="84" height="42" rx="7" fill="#f6faf9" stroke="#cdded7"/>
+        <text x="342" y="42" text-anchor="middle" fill="#526f68" font-size="14" font-weight="600">C</text>
+        <text x="342" y="59" text-anchor="middle" fill="#526f68">follower</text>
+        <rect x="300" y="87" width="84" height="42" rx="7" fill="#f6faf9" stroke="#cdded7"/>
+        <text x="342" y="104" text-anchor="middle" fill="#526f68" font-size="14" font-weight="600">D</text>
+        <text x="342" y="121" text-anchor="middle" fill="#526f68">follower</text>
+        <g class="stage-start" opacity="0"><text x="200" y="146" text-anchor="middle" fill="#526f68">A leads the cluster</text></g>
+        <g class="stage-timeout" opacity="0"><text x="200" y="146" text-anchor="middle" fill="#526f68">A goes offline · election timeout</text></g>
+        <g class="stage-vote" opacity="0"><text x="200" y="146" text-anchor="middle" fill="#526f68">B votes for itself and asks C + D</text></g>
+        <g class="stage-done"><text x="200" y="146" text-anchor="middle" fill="#526f68">B + C + D · 3 of 4 votes · B elected</text></g>
+        <circle class="packet vote-request" cx="234" cy="65" r="3" fill="#167b66" style="--dx:66px;--dy:-26px"/>
+        <circle class="packet vote-request" cx="234" cy="81" r="3" fill="#167b66" style="--dx:66px;--dy:20px"/>
+        <circle class="packet vote-reply" cx="300" cy="49" r="3" fill="#167b66" style="--dx:-66px;--dy:26px"/>
+        <circle class="packet vote-reply" cx="300" cy="111" r="3" fill="#167b66" style="--dx:-66px;--dy:-20px;animation-delay:.12s"/>
+        </g>
 </svg>

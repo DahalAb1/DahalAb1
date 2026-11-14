@@ -4,9 +4,9 @@ from pathlib import Path
 
 OUT = Path(__file__).resolve().parents[1] / 'assets'
 TITLES = {
-    'consensus': ('Raft replication', 'A leader sends a write to two followers.'),
-    'resize': ('Incremental hash-table resizing', 'Entries move from the old table to a larger table a little at a time.'),
-    'sanscue': ('SansCue check-in workflow', 'Speech informs an AI draft, a moderator reviews it, and the audience responds.'),
+    'consensus': ('Raft leader failover', "In this four-server illustration, A goes offline. After an election timeout, B requests votes from C and D. With its own vote and both replies, B becomes leader with a three-of-four majority. A stays offline."),
+    'resize': ('A request through the Redis-style server', 'GET city travels from a client through the event loop to an in-memory table. The matching value, Austin, returns to the client.'),
+    'sanscue': ('SansCue audience feedback loop', 'Speaker context informs an AI check-in draft. A moderator reviews and publishes it. Audience clarity feedback returns to the speaker.'),
     'network': ('Neural-network forward pass', 'Two inputs pass through two hidden neurons to one output.'),
 }
 
@@ -25,23 +25,207 @@ def render(kind, dark, animated):
     def packet(x, y, dx, dy, delay=0):
         return f'<circle class="packet" cx="{x}" cy="{y}" r="3" fill="{accent}" style="--dx:{dx}px;--dy:{dy}px;animation-delay:{delay}s"/>'
     parts = []
+    height = 76
+    extra_motion = ''
     if kind == 'consensus':
-        parts += [line(70, 32, 220, 17), line(70, 32, 220, 47)]
-        parts += [packet(70, 32, 150, -15), packet(70, 32, 150, 15)]
-        parts += [node(70, 32, 10), node(220, 17), node(220, 47)]
-        parts += [label(70, 65, 'leader'), label(300, 37, 'two followers')]
+        height = 156
+        parts += [f'''<g font-size="10" letter-spacing="1">{label(200, 16, 'FOUR SERVERS · MAJORITY = 3')}</g>
+        <path d="M92 74 H144" stroke="{border}" stroke-width="1.5" stroke-dasharray="3 4"/>
+        <g fill="none" stroke="{border}" stroke-width="1.5">
+          <path d="M234 65 L300 39 M300 49 L234 75"/>
+          <path d="M234 81 L300 101 M300 111 L234 91"/>
+        </g>
+        <g class="old-server" opacity=".45">
+          <rect x="16" y="54" width="76" height="42" rx="7" fill="{bg}" stroke="{border}"/>
+          <text x="54" y="71" text-anchor="middle" fill="{ink}" font-size="14" font-weight="600">A</text>
+          <g class="initial-role" opacity="0">{label(54, 88, 'leader')}</g>
+          <g class="offline-role">{label(54, 88, 'offline')}</g>
+        </g>
+        <rect x="144" y="54" width="90" height="42" rx="7" fill="{bg}" stroke="{border}"/>
+        <rect class="new-leader" x="144" y="54" width="90" height="42" rx="7" fill="{soft}" stroke="{accent}" stroke-width="1.5"/>
+        <text x="189" y="71" text-anchor="middle" fill="{accent}" font-size="14" font-weight="600">B</text>
+        <g class="follower-role" opacity="0">{label(189, 88, 'follower')}</g>
+        <g class="candidate-role" opacity="0">{label(189, 88, 'candidate')}</g>
+        <g class="leader-role">{label(189, 88, 'leader')}</g>
+        <rect x="300" y="25" width="84" height="42" rx="7" fill="{bg}" stroke="{border}"/>
+        <text x="342" y="42" text-anchor="middle" fill="{ink}" font-size="14" font-weight="600">C</text>
+        {label(342, 59, 'follower')}
+        <rect x="300" y="87" width="84" height="42" rx="7" fill="{bg}" stroke="{border}"/>
+        <text x="342" y="104" text-anchor="middle" fill="{ink}" font-size="14" font-weight="600">D</text>
+        {label(342, 121, 'follower')}
+        <g class="stage-start" opacity="0">{label(200, 146, 'A leads the cluster')}</g>
+        <g class="stage-timeout" opacity="0">{label(200, 146, 'A goes offline · election timeout')}</g>
+        <g class="stage-vote" opacity="0">{label(200, 146, 'B votes for itself and asks C + D')}</g>
+        <g class="stage-done">{label(200, 146, 'B + C + D · 3 of 4 votes · B elected')}</g>
+        <circle class="packet vote-request" cx="234" cy="65" r="3" fill="{accent}" style="--dx:66px;--dy:-26px"/>
+        <circle class="packet vote-request" cx="234" cy="81" r="3" fill="{accent}" style="--dx:66px;--dy:20px"/>
+        <circle class="packet vote-reply" cx="300" cy="49" r="3" fill="{accent}" style="--dx:-66px;--dy:26px"/>
+        <circle class="packet vote-reply" cx="300" cy="111" r="3" fill="{accent}" style="--dx:-66px;--dy:-20px;animation-delay:.12s"/>
+        ''']
+        if animated:
+            # The default SVG is the final state, including without CSS animation.
+            # Opacity intervals keep the text changes discrete and non-overlapping.
+            intervals = {
+                'initial-role': (0, 20), 'offline-role': (20, 100),
+                'follower-role': (0, 38), 'candidate-role': (38, 84),
+                'leader-role': (84, 100), 'new-leader': (84, 100),
+                'stage-start': (0, 20), 'stage-timeout': (20, 38),
+                'stage-vote': (38, 84), 'stage-done': (84, 100),
+            }
+            for name, (start, end) in intervals.items():
+                keys = ('0%{opacity:1;}' if start == 0 else
+                        f'0%,{start-.01}%{{opacity:0;}}{start}%{{opacity:1;}}')
+                keys += ('100%{opacity:1;}' if end == 100 else
+                         f'{end-.01}%{{opacity:1;}}{end}%,100%{{opacity:0;}}')
+                extra_motion += f'.{name}{{animation:{name} 4.8s linear 1;}}@keyframes {name}{{{keys}}}'
+            extra_motion += '''
+            .old-server { animation:disconnect 4.8s linear 1; }
+            .vote-request { animation:ask-vote 4.8s ease-in-out 1; }
+            .vote-reply { animation:grant-vote 4.8s ease-in-out 1; }
+            @keyframes disconnect {
+              0%,19.99% { opacity:1; } 20%,100% { opacity:.45; }
+            }
+            @keyframes ask-vote {
+              0%,40% { opacity:0; transform:translateX(0); }
+              44% { opacity:1; transform:translateX(0); }
+              57% { opacity:1; transform:translate(var(--dx),var(--dy)); }
+              60%,100% { opacity:0; transform:translate(var(--dx),var(--dy)); }
+            }
+            @keyframes grant-vote {
+              0%,61% { opacity:0; transform:translateX(0); }
+              64% { opacity:1; transform:translateX(0); }
+              77% { opacity:1; transform:translate(var(--dx),var(--dy)); }
+              80%,100% { opacity:0; transform:translate(var(--dx),var(--dy)); }
+            }
+            @media(prefers-reduced-motion:reduce) {
+              .old-server,.vote-request,.vote-reply,
+              .initial-role,.offline-role,.follower-role,.candidate-role,.leader-role,
+              .new-leader,.stage-start,.stage-timeout,.stage-vote,.stage-done { animation:none; }
+            }
+            '''
     elif kind == 'resize':
-        parts += [line(107, 31, 215, 31)]
-        for x, count in [(25, 4), (215, 8)]:
-            for i in range(count):
-                parts += [f'<rect x="{x + i*20}" y="23" width="15" height="16" rx="3" fill="{soft}" stroke="{border}"/>']
-        parts += [packet(92, 31, 150, 0)]
-        parts += [label(62, 65, 'old table'), label(292, 65, 'grow a little at a time')]
+        height = 112
+        parts += [f'''<g font-size="10" letter-spacing="1">
+          {label(60, 18, 'CLIENT')}{label(194, 18, 'EVENT LOOP')}{label(332, 18, 'IN MEMORY')}
+        </g>
+        <path d="M104 50 H279 M332 79 V91 H60 V73" fill="none" stroke="{border}" stroke-width="1.5"/>
+        <path d="M272 47 L279 50 L272 53 M57 80 L60 73 L63 80" fill="none" stroke="{accent}" stroke-width="1.5"/>
+        <rect x="16" y="31" width="88" height="42" rx="7" fill="{bg}" stroke="{border}"/>
+        <text x="60" y="55" text-anchor="middle" fill="{accent}" font-family="ui-monospace,Menlo,monospace" font-size="12">GET city</text>
+        <circle cx="194" cy="50" r="17" fill="{bg}" stroke="{border}" stroke-width="2"/>
+        <g class="io-ring" style="transform-origin:194px 50px">
+          <path d="M194 33 A17 17 0 0 1 211 50" fill="none" stroke="{accent}" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <text x="194" y="54" text-anchor="middle" fill="{ink}" font-size="10">I/O</text>
+        <rect x="279" y="31" width="106" height="48" rx="6" fill="{bg}" stroke="{border}"/>
+        <rect class="lookup-row" x="282" y="34" width="100" height="21" rx="3" fill="{accent}" opacity=".12"/>
+        <g font-family="ui-monospace,Menlo,monospace" font-size="11">
+          <text x="290" y="48" fill="{ink}">city</text><text x="329" y="48" fill="{accent}">Austin</text>
+          <text x="290" y="70" fill="{ink}">id</text><text x="329" y="70" fill="{ink}">42</text>
+        </g>
+        <text x="194" y="106" text-anchor="middle" fill="{accent}" font-family="ui-monospace,Menlo,monospace" font-size="12">"Austin"</text>
+        <circle class="packet request" cx="104" cy="50" r="3" fill="{accent}"/>
+        <circle class="packet response" cx="332" cy="91" r="3" fill="{accent}"/>
+        ''']
+        # One complete request/lookup/response sequence, then a readable still.
+        extra_motion = '''
+        .request { animation:request 4.6s ease-in-out 1; }
+        .response { animation:response 4.6s ease-in-out 1; }
+        .io-ring { animation:poll 4.6s ease-in-out 1; }
+        .lookup-row { animation:lookup 4.6s ease-in-out 1; }
+        @keyframes request {
+          0%,5% { opacity:0; transform:translateX(0); }
+          10% { opacity:1; transform:translateX(0); }
+          26% { opacity:1; transform:translateX(90px); }
+          43% { opacity:1; transform:translateX(175px); }
+          46%,100% { opacity:0; transform:translateX(175px); }
+        }
+        @keyframes response {
+          0%,54% { opacity:0; transform:translate(0,0); }
+          58% { opacity:1; transform:translate(0,0); }
+          87% { opacity:1; transform:translate(-272px,0); }
+          94% { opacity:1; transform:translate(-272px,-18px); }
+          97%,100% { opacity:0; transform:translate(-272px,-18px); }
+        }
+        @keyframes poll {
+          0%,15% { transform:rotate(0); }
+          46%,100% { transform:rotate(360deg); }
+        }
+        @keyframes lookup {
+          0%,40%,70%,100% { opacity:.12; }
+          48%,58% { opacity:.4; }
+        }
+        @media(prefers-reduced-motion:reduce) {
+          .request,.response,.io-ring,.lookup-row { animation:none; }
+        }
+        ''' if animated else ''
     elif kind == 'sanscue':
-        positions = [35, 145, 255, 365]
-        parts += [line(35, 29, 365, 29), packet(35, 29, 330, 0)]
-        parts += [node(x, 29) for x in positions]
-        parts += [label(x, 61, s) for x, s in zip(positions, ['speech', 'AI draft', 'review', 'audience'])]
+        height = 112
+        parts += [f'''<g font-size="10" letter-spacing="1">
+          {label(56, 18, 'SPEAKER')}{label(197, 18, 'MODERATOR')}{label(332, 18, 'AUDIENCE')}
+        </g>
+        <path d="M96 52 H141 M253 52 H289 M332 76 V91 H56 V75" fill="none" stroke="{border}" stroke-width="1.5"/>
+        <path d="M134 49 L141 52 L134 55 M282 49 L289 52 L282 55 M53 82 L56 75 L59 82" fill="none" stroke="{accent}" stroke-width="1.5"/>
+        <rect x="16" y="31" width="80" height="44" rx="7" fill="{bg}" stroke="{border}"/>
+        <g class="speech-wave" stroke="{accent}" stroke-width="2" stroke-linecap="round">
+          <path d="M34 49 V57 M43 42 V64 M52 47 V59 M61 39 V67 M70 46 V60 M79 50 V56"/>
+        </g>
+        <rect x="141" y="31" width="112" height="44" rx="7" fill="{bg}" stroke="{border}"/>
+        <text x="197" y="47" text-anchor="middle" fill="{ink}" font-size="12">AI check-in draft</text>
+        <rect class="review-gate" x="145" y="53" width="104" height="18" rx="4" fill="{accent}" opacity=".12"/>
+        <text x="197" y="66" text-anchor="middle" fill="{accent}" font-size="10">review &amp; publish</text>
+        <rect x="289" y="31" width="87" height="45" rx="7" fill="{bg}" stroke="{border}"/>
+        <g class="audience-reply" fill="{soft}" stroke="{accent}" stroke-width="1.5" style="--soft:{soft};--accent:{accent}">
+          <circle cx="309" cy="44" r="4"/><circle cx="332" cy="44" r="4"/><circle cx="355" cy="44" r="4"/>
+          <path d="M302 65 V59 A7 7 0 0 1 316 59 V65 M325 65 V59 A7 7 0 0 1 339 59 V65 M348 65 V59 A7 7 0 0 1 362 59 V65"/>
+        </g>
+        <text x="197" y="106" text-anchor="middle" fill="{accent}" font-size="12">clarity feedback</text>
+        <circle class="packet context" cx="96" cy="52" r="3" fill="{accent}"/>
+        <circle class="packet check-in" cx="253" cy="52" r="3" fill="{accent}"/>
+        <circle class="packet feedback" cx="332" cy="91" r="3" fill="{accent}"/>
+        ''']
+        extra_motion = '''
+        .context { animation:context 4.8s ease-in-out 1; }
+        .check-in { animation:publish 4.8s ease-in-out 1; }
+        .feedback { animation:feedback 4.8s ease-in-out 1; }
+        .review-gate { animation:review 4.8s ease-in-out 1; }
+        .speech-wave { animation:speech 4.8s ease-in-out 1; }
+        .audience-reply { animation:reply 4.8s ease-in-out 1; }
+        @keyframes context {
+          0%,5% { opacity:0; transform:translateX(0); }
+          8% { opacity:1; transform:translateX(0); }
+          22% { opacity:1; transform:translateX(45px); }
+          25%,100% { opacity:0; transform:translateX(45px); }
+        }
+        @keyframes review {
+          0%,22%,46%,100% { opacity:.12; }
+          29%,39% { opacity:.4; }
+        }
+        @keyframes publish {
+          0%,43% { opacity:0; transform:translateX(0); }
+          46% { opacity:1; transform:translateX(0); }
+          60% { opacity:1; transform:translateX(36px); }
+          63%,100% { opacity:0; transform:translateX(36px); }
+        }
+        @keyframes feedback {
+          0%,69% { opacity:0; transform:translate(0,0); }
+          72% { opacity:1; transform:translate(0,0); }
+          92% { opacity:1; transform:translate(-276px,0); }
+          96% { opacity:1; transform:translate(-276px,-16px); }
+          99%,100% { opacity:0; transform:translate(-276px,-16px); }
+        }
+        @keyframes speech {
+          0%,12%,100% { opacity:1; }
+          6% { opacity:.35; }
+        }
+        @keyframes reply {
+          0%,60%,75%,100% { fill:var(--soft); }
+          66% { fill:var(--accent); }
+        }
+        @media(prefers-reduced-motion:reduce) {
+          .context,.check-in,.feedback,.review-gate,.speech-wave,.audience-reply { animation:none; }
+        }
+        ''' if animated else ''
     else:
         for y in [18, 42]:
             for target in [18, 42]:
@@ -62,10 +246,10 @@ def render(kind, dark, animated):
     @media(prefers-reduced-motion:reduce) { .packet { animation:none; } }
     ''' if animated else '.packet { opacity:0; }'
     title, desc = TITLES[kind]
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="400" height="76" viewBox="0 0 400 76" role="img" aria-labelledby="title desc">
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="400" height="{height}" viewBox="0 0 400 {height}" role="img" aria-labelledby="title desc">
   <title id="title">{title}</title><desc id="desc">{desc} Schematic illustration.</desc>
-  <style>{motion}</style>
-  <rect width="400" height="76" rx="8" fill="{bg}"/>
+  <style>{motion}{extra_motion}</style>
+  <rect width="400" height="{height}" rx="8" fill="{bg}"/>
   <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13">{''.join(parts)}</g>
 </svg>
 '''
@@ -77,5 +261,5 @@ if __name__ == '__main__':
         for dark in (False, True):
             for animated in (True, False):
                 name = f"{kind}-{'static-' if not animated else ''}{'dark' if dark else 'light'}.svg"
-                (OUT / name).write_text(render(kind, dark, animated))
+                (OUT / name).write_text("\n".join(line.rstrip() for line in render(kind, dark, animated).splitlines()) + "\n")
     print('Generated 16 project diagrams (light, dark, animated, reduced motion).')

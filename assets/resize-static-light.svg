@@ -1,6 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="76" viewBox="0 0 400 76" role="img" aria-labelledby="title desc">
-  <title id="title">Incremental hash-table resizing</title><desc id="desc">Entries move from the old table to a larger table a little at a time. Schematic illustration.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="112" viewBox="0 0 400 112" role="img" aria-labelledby="title desc">
+  <title id="title">A request through the Redis-style server</title><desc id="desc">GET city travels from a client through the event loop to an in-memory table. The matching value, Austin, returns to the client. Schematic illustration.</desc>
   <style>.packet { opacity:0; }</style>
-  <rect width="400" height="76" rx="8" fill="#f6faf9"/>
-  <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13"><path d="M107 31 L215 31" stroke="#cdded7" stroke-width="1.5"/><rect x="25" y="23" width="15" height="16" rx="3" fill="#deeee7" stroke="#cdded7"/><rect x="45" y="23" width="15" height="16" rx="3" fill="#deeee7" stroke="#cdded7"/><rect x="65" y="23" width="15" height="16" rx="3" fill="#deeee7" stroke="#cdded7"/><rect x="85" y="23" width="15" height="16" rx="3" fill="#deeee7" stroke="#cdded7"/><rect x="215" y="23" width="15" height="16" rx="3" fill="#deeee7" stroke="#cdded7"/><rect x="235" y="23" width="15" height="16" rx="3" fill="#deeee7" stroke="#cdded7"/><rect x="255" y="23" width="15" height="16" rx="3" fill="#deeee7" stroke="#cdded7"/><rect x="275" y="23" width="15" height="16" rx="3" fill="#deeee7" stroke="#cdded7"/><rect x="295" y="23" width="15" height="16" rx="3" fill="#deeee7" stroke="#cdded7"/><rect x="315" y="23" width="15" height="16" rx="3" fill="#deeee7" stroke="#cdded7"/><rect x="335" y="23" width="15" height="16" rx="3" fill="#deeee7" stroke="#cdded7"/><rect x="355" y="23" width="15" height="16" rx="3" fill="#deeee7" stroke="#cdded7"/><circle class="packet" cx="92" cy="31" r="3" fill="#167b66" style="--dx:150px;--dy:0px;animation-delay:0s"/><text x="62" y="65" text-anchor="middle" fill="#526f68">old table</text><text x="292" y="65" text-anchor="middle" fill="#526f68">grow a little at a time</text></g>
+  <rect width="400" height="112" rx="8" fill="#f6faf9"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13"><g font-size="10" letter-spacing="1">
+          <text x="60" y="18" text-anchor="middle" fill="#526f68">CLIENT</text><text x="194" y="18" text-anchor="middle" fill="#526f68">EVENT LOOP</text><text x="332" y="18" text-anchor="middle" fill="#526f68">IN MEMORY</text>
+        </g>
+        <path d="M104 50 H279 M332 79 V91 H60 V73" fill="none" stroke="#cdded7" stroke-width="1.5"/>
+        <path d="M272 47 L279 50 L272 53 M57 80 L60 73 L63 80" fill="none" stroke="#167b66" stroke-width="1.5"/>
+        <rect x="16" y="31" width="88" height="42" rx="7" fill="#f6faf9" stroke="#cdded7"/>
+        <text x="60" y="55" text-anchor="middle" fill="#167b66" font-family="ui-monospace,Menlo,monospace" font-size="12">GET city</text>
+        <circle cx="194" cy="50" r="17" fill="#f6faf9" stroke="#cdded7" stroke-width="2"/>
+        <g class="io-ring" style="transform-origin:194px 50px">
+          <path d="M194 33 A17 17 0 0 1 211 50" fill="none" stroke="#167b66" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <text x="194" y="54" text-anchor="middle" fill="#526f68" font-size="10">I/O</text>
+        <rect x="279" y="31" width="106" height="48" rx="6" fill="#f6faf9" stroke="#cdded7"/>
+        <rect class="lookup-row" x="282" y="34" width="100" height="21" rx="3" fill="#167b66" opacity=".12"/>
+        <g font-family="ui-monospace,Menlo,monospace" font-size="11">
+          <text x="290" y="48" fill="#526f68">city</text><text x="329" y="48" fill="#167b66">Austin</text>
+          <text x="290" y="70" fill="#526f68">id</text><text x="329" y="70" fill="#526f68">42</text>
+        </g>
+        <text x="194" y="106" text-anchor="middle" fill="#167b66" font-family="ui-monospace,Menlo,monospace" font-size="12">"Austin"</text>
+        <circle class="packet request" cx="104" cy="50" r="3" fill="#167b66"/>
+        <circle class="packet response" cx="332" cy="91" r="3" fill="#167b66"/>
+        </g>
 </svg>

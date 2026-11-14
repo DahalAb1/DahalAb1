@@ -17,7 +17,7 @@ A replicated key/value store with leader election, crash persistence, and snapsh
     <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="assets/consensus-static-dark.svg">
     <source media="(prefers-reduced-motion: reduce)" srcset="assets/consensus-static-light.svg">
     <source media="(prefers-color-scheme: dark)" srcset="assets/consensus-dark.svg">
-    <img src="assets/consensus-light.svg" width="400" alt="Raft: a leader sends a write to two followers. Open the interactive demo.">
+    <img src="assets/consensus-light.svg" width="400" alt="Illustrated four-server Raft election: A goes offline, B receives votes from C and D, and B becomes leader with three of four votes. Open the interactive demo.">
   </picture>
 </a>
 </p>
@@ -26,12 +26,12 @@ A replicated key/value store with leader election, crash persistence, and snapsh
 Non-blocking sockets, an event loop, and incremental hash-table resizing. [Benchmarks](https://github.com/DahalAb1/Redis/tree/main/bench#incremental-resize-vs-stdunordered_map-tail-latency) investigate pauses as the table grows.
 
 <p>
-<a href="https://github.com/DahalAb1/Redis/tree/main/bench#incremental-resize-vs-stdunordered_map-tail-latency">
+<a href="https://github.com/DahalAb1/Redis">
   <picture>
     <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="assets/resize-static-dark.svg">
     <source media="(prefers-reduced-motion: reduce)" srcset="assets/resize-static-light.svg">
     <source media="(prefers-color-scheme: dark)" srcset="assets/resize-dark.svg">
-    <img src="assets/resize-light.svg" width="400" alt="Incremental resizing: entries move from an old hash table to a larger one a little at a time.">
+    <img src="assets/resize-light.svg" width="400" alt="Redis-style server: GET city passes through the event loop, finds Austin in memory, and returns it to the client.">
   </picture>
 </a>
 </p>
@@ -45,7 +45,7 @@ Co-built a communication platform that turns live conversational context into au
     <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="assets/sanscue-static-dark.svg">
     <source media="(prefers-reduced-motion: reduce)" srcset="assets/sanscue-static-light.svg">
     <source media="(prefers-color-scheme: dark)" srcset="assets/sanscue-dark.svg">
-    <img src="assets/sanscue-light.svg" width="400" alt="SansCue: speech informs an AI draft, then moderator review, then audience participation.">
+    <img src="assets/sanscue-light.svg" width="400" alt="SansCue feedback loop: speaker context informs an AI check-in draft, a moderator reviews and publishes it, and audience clarity feedback returns to the speaker.">
   </picture>
 </a>
 </p>
