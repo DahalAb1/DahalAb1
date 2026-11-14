@@ -33,6 +33,6 @@
         <circle class="packet vote-request" cx="234" cy="65" r="3" fill="#167b66" style="--dx:66px;--dy:-26px"/>
         <circle class="packet vote-request" cx="234" cy="81" r="3" fill="#167b66" style="--dx:66px;--dy:20px"/>
         <circle class="packet vote-reply" cx="300" cy="49" r="3" fill="#167b66" style="--dx:-66px;--dy:26px"/>
-        <circle class="packet vote-reply" cx="300" cy="111" r="3" fill="#167b66" style="--dx:-66px;--dy:-20px;animation-delay:.12s"/>
+        <circle class="packet vote-reply vote-reply-late" cx="300" cy="111" r="3" fill="#167b66" style="--dx:-66px;--dy:-20px"/>
         </g>
 </svg>

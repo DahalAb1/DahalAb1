@@ -1,45 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="400" height="112" viewBox="0 0 400 112" role="img" aria-labelledby="title desc">
   <title id="title">A request through the Redis-style server</title><desc id="desc">GET city travels from a client through the event loop to an in-memory table. The matching value, Austin, returns to the client. Schematic illustration.</desc>
-  <style>
-    .packet { opacity:0; animation:travel 1.8s ease-in-out 2; }
-    @keyframes travel {
-      0%,12% { opacity:0; transform:translate(0,0); }
-      22% { opacity:1; }
-      72% { opacity:1; transform:translate(var(--dx),var(--dy)); }
-      84%,100% { opacity:0; transform:translate(var(--dx),var(--dy)); }
-    }
-    @media(prefers-reduced-motion:reduce) { .packet { animation:none; } }
+  <style>.packet { opacity:0; }
+        .request { animation:request-intro 4.6s ease-in-out 0s 1, request-sequence 16.9s ease-in-out 5.8s infinite; }
+        .response { animation:response-intro 4.6s ease-in-out 0s 1, response-sequence 16.9s ease-in-out 5.8s infinite; }
+        .io-ring { animation:poll-intro 4.6s ease-in-out 0s 1, poll-sequence 16.9s ease-in-out 5.8s infinite; }
+        .lookup-row { animation:lookup-intro 4.6s ease-in-out 0s 1, lookup-sequence 16.9s ease-in-out 5.8s infinite; }
 
-        .request { animation:request 4.6s ease-in-out 1; }
-        .response { animation:response 4.6s ease-in-out 1; }
-        .io-ring { animation:poll 4.6s ease-in-out 1; }
-        .lookup-row { animation:lookup 4.6s ease-in-out 1; }
-        @keyframes request {
-          0%,5% { opacity:0; transform:translateX(0); }
-          10% { opacity:1; transform:translateX(0); }
-          26% { opacity:1; transform:translateX(90px); }
-          43% { opacity:1; transform:translateX(175px); }
-          46%,100% { opacity:0; transform:translateX(175px); }
-        }
-        @keyframes response {
-          0%,54% { opacity:0; transform:translate(0,0); }
-          58% { opacity:1; transform:translate(0,0); }
-          87% { opacity:1; transform:translate(-272px,0); }
-          94% { opacity:1; transform:translate(-272px,-18px); }
-          97%,100% { opacity:0; transform:translate(-272px,-18px); }
-        }
-        @keyframes poll {
-          0%,15% { transform:rotate(0); }
-          46%,100% { transform:rotate(360deg); }
-        }
-        @keyframes lookup {
-          0%,40%,70%,100% { opacity:.12; }
-          48%,58% { opacity:.4; }
-        }
+
+
+
         @media(prefers-reduced-motion:reduce) {
           .request,.response,.io-ring,.lookup-row { animation:none; }
         }
-        </style>
+        @keyframes request-intro{0.00000000%{opacity:0; transform:translateX(0);}5.00000000%{opacity:0; transform:translateX(0);}10.00000000%{opacity:1; transform:translateX(0);}26.00000000%{opacity:1; transform:translateX(90px);}43.00000000%{opacity:1; transform:translateX(175px);}46.00000000%{opacity:0; transform:translateX(175px);}100.00000000%{opacity:0; transform:translateX(175px);}}@keyframes request-sequence{0.00000000%{opacity:0; transform:translateX(175px);}28.40230769%{opacity:0; transform:translateX(175px);}28.40236686%{opacity:0; transform:translateX(0);}29.76331361%{opacity:0; transform:translateX(0);}31.12426036%{opacity:1; transform:translateX(0);}35.47928994%{opacity:1; transform:translateX(90px);}40.10650888%{opacity:1; transform:translateX(175px);}40.92307692%{opacity:0; transform:translateX(175px);}55.62130178%{opacity:0; transform:translateX(175px);}100.00000000%{opacity:0; transform:translateX(175px);}}@keyframes response-intro{0.00000000%{opacity:0; transform:translate(0,0);}54.00000000%{opacity:0; transform:translate(0,0);}58.00000000%{opacity:1; transform:translate(0,0);}87.00000000%{opacity:1; transform:translate(-272px,0);}94.00000000%{opacity:1; transform:translate(-272px,-18px);}97.00000000%{opacity:0; transform:translate(-272px,-18px);}100.00000000%{opacity:0; transform:translate(-272px,-18px);}}@keyframes response-sequence{0.00000000%{opacity:0; transform:translate(-272px,-18px);}28.40230769%{opacity:0; transform:translate(-272px,-18px);}28.40236686%{opacity:0; transform:translate(0,0);}43.10059172%{opacity:0; transform:translate(0,0);}44.18934911%{opacity:1; transform:translate(0,0);}52.08284024%{opacity:1; transform:translate(-272px,0);}53.98816568%{opacity:1; transform:translate(-272px,-18px);}54.80473373%{opacity:0; transform:translate(-272px,-18px);}55.62130178%{opacity:0; transform:translate(-272px,-18px);}100.00000000%{opacity:0; transform:translate(-272px,-18px);}}@keyframes poll-intro{0.00000000%{transform:rotate(0);}15.00000000%{transform:rotate(0);}46.00000000%{transform:rotate(360deg);}100.00000000%{transform:rotate(360deg);}}@keyframes poll-sequence{0.00000000%{transform:rotate(360deg);}28.40230769%{transform:rotate(360deg);}28.40236686%{transform:rotate(0);}32.48520710%{transform:rotate(0);}40.92307692%{transform:rotate(360deg);}55.62130178%{transform:rotate(360deg);}100.00000000%{transform:rotate(360deg);}}@keyframes lookup-intro{0.00000000%{opacity:.12;}40.00000000%{opacity:.12;}48.00000000%{opacity:.4;}58.00000000%{opacity:.4;}70.00000000%{opacity:.12;}100.00000000%{opacity:.12;}}@keyframes lookup-sequence{0.00000000%{opacity:.12;}28.40230769%{opacity:.12;}28.40236686%{opacity:.12;}39.28994083%{opacity:.12;}41.46745562%{opacity:.4;}44.18934911%{opacity:.4;}47.45562130%{opacity:.12;}55.62130178%{opacity:.12;}100.00000000%{opacity:.12;}}</style>
   <rect width="400" height="112" rx="8" fill="#f6faf9"/>
   <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13"><g font-size="10" letter-spacing="1">
           <text x="60" y="18" text-anchor="middle" fill="#526f68">CLIENT</text><text x="194" y="18" text-anchor="middle" fill="#526f68">EVENT LOOP</text><text x="332" y="18" text-anchor="middle" fill="#526f68">IN MEMORY</text>

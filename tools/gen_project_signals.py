@@ -1,14 +1,67 @@
 #!/usr/bin/env python3
-"""Generate compact diagrams: Raft repeats with a long pause; others settle."""
+"""Play all diagrams once, pause, then repeat them in project order."""
 from pathlib import Path
+import re
 
 OUT = Path(__file__).resolve().parents[1] / 'assets'
+# Every SVG uses this schedule relative to its load time. GitHub embeds the
+# files independently, so network/lazy-loading can offset their start clocks.
+DURATIONS = {'consensus': 4.8, 'resize': 4.6, 'sanscue': 4.8, 'network': 2.7}
+OPENING_PAUSE = 1
+INTRO_END = max(DURATIONS.values())
+LOOP_START = INTRO_END + OPENING_PAUSE
+LOOP_SECONDS = sum(DURATIONS.values())
 TITLES = {
     'consensus': ('Raft leader failover', "In this four-server illustration, A goes offline. After an election timeout, B requests votes from C and D. With its own vote and both replies, B becomes leader with a three-of-four majority. A stays offline."),
     'resize': ('A request through the Redis-style server', 'GET city travels from a client through the event loop to an in-memory table. The matching value, Austin, returns to the client.'),
     'sanscue': ('SansCue audience feedback loop', 'Speaker context informs an AI check-in draft. A moderator reviews and publishes it. Audience clarity feedback returns to the speaker.'),
     'network': ('Neural-network forward pass', 'Two inputs pass through two hidden neurons to one output.'),
 }
+
+
+def schedule_timeline(css, kind):
+    """Give each effect an opening pass and a slot in the shared repeat cycle."""
+    keyframes = {}
+    pattern = r'@keyframes\s+([\w-]+)\s*\{((?:[^{}]|\{[^{}]*\})*)\}'
+    for match in re.finditer(pattern, css):
+        frames = {}
+        for frame in re.finditer(r'([\d.,%\s]+)\{([^{}]*)\}', match[2]):
+            for percent in frame[1].split(','):
+                frames[float(percent.strip().rstrip('%'))] = frame[2].strip()
+        keyframes[match[1]] = frames
+    css = re.sub(pattern, '', css)
+    duration = DURATIONS[kind]
+    slot = sum(value for name, value in list(DURATIONS.items())[:list(DURATIONS).index(kind)])
+    # Internal stages are part of the timeline, not per-element CSS delays.
+    offsets = {'grant-vote-late': .12, 'travel-output': .9}
+    aliases = {'grant-vote-late': 'grant-vote', 'travel-output': 'travel'}
+    generated = []
+
+    def scheduled_frames(source, source_seconds, start, span, end):
+        final = source[100]
+        frames = {0: final, span: final}
+        if start > 0:
+            frames[start - .00001] = final
+        for percent, declarations in sorted(source.items()):
+            time = min(start + source_seconds * percent / 100, end)
+            frames[time] = declarations
+        frames[end] = final
+        return ''.join(f'{time / span * 100:.8f}%{{{body}}}'
+                       for time, body in sorted(frames.items()))
+
+    def animation(match):
+        name, seconds, easing = match[1], float(match[2]), match[3]
+        source = keyframes[aliases.get(name, name)]
+        offset = offsets.get(name, 0)
+        opening = scheduled_frames(source, seconds, offset, duration, duration)
+        repeat = scheduled_frames(source, seconds, slot + offset, LOOP_SECONDS, slot + duration)
+        generated.extend([f'@keyframes {name}-intro{{{opening}}}',
+                          f'@keyframes {name}-sequence{{{repeat}}}'])
+        return (f'animation:{name}-intro {duration:g}s {easing} 0s 1, '
+                f'{name}-sequence {LOOP_SECONDS:g}s {easing} {LOOP_START:g}s infinite;')
+
+    css = re.sub(r'animation:([\w-]+) ([\d.]+)s (ease-in-out|linear) 1;', animation, css)
+    return css + ''.join(generated)
 
 
 def render(kind, dark, animated):
@@ -23,7 +76,7 @@ def render(kind, dark, animated):
     def node(x, y, r=6):
         return f'<circle cx="{x}" cy="{y}" r="{r}" fill="{soft}" stroke="{accent}" stroke-width="1.5"/>'
     def packet(x, y, dx, dy, delay=0):
-        return f'<circle class="packet" cx="{x}" cy="{y}" r="3" fill="{accent}" style="--dx:{dx}px;--dy:{dy}px;animation-delay:{delay}s"/>'
+        return f'<circle class="packet{" output" if delay else ""}" cx="{x}" cy="{y}" r="3" fill="{accent}" style="--dx:{dx}px;--dy:{dy}px"/>'
     parts = []
     height = 76
     extra_motion = ''
@@ -60,13 +113,11 @@ def render(kind, dark, animated):
         <circle class="packet vote-request" cx="234" cy="65" r="3" fill="{accent}" style="--dx:66px;--dy:-26px"/>
         <circle class="packet vote-request" cx="234" cy="81" r="3" fill="{accent}" style="--dx:66px;--dy:20px"/>
         <circle class="packet vote-reply" cx="300" cy="49" r="3" fill="{accent}" style="--dx:-66px;--dy:26px"/>
-        <circle class="packet vote-reply" cx="300" cy="111" r="3" fill="{accent}" style="--dx:-66px;--dy:-20px;animation-delay:.12s"/>
+        <circle class="packet vote-reply vote-reply-late" cx="300" cy="111" r="3" fill="{accent}" style="--dx:-66px;--dy:-20px"/>
         ''']
         if animated:
             # The default SVG is the final state, including without CSS animation.
             # Opacity intervals keep the text changes discrete and non-overlapping.
-            # Fit the original 4.8-second sequence into a 12-second cycle,
-            # leaving 7.2 seconds to hold the result before the next election.
             intervals = {
                 'initial-role': (0, 20), 'offline-role': (20, 100),
                 'follower-role': (0, 38), 'candidate-role': (38, 84),
@@ -75,34 +126,33 @@ def render(kind, dark, animated):
                 'stage-vote': (38, 84), 'stage-done': (84, 100),
             }
             for name, (start, end) in intervals.items():
-                start *= .4
-                end = 100 if end == 100 else end * .4
                 keys = ('0%{opacity:1;}' if start == 0 else
                         f'0%,{start-.01}%{{opacity:0;}}{start}%{{opacity:1;}}')
                 keys += ('100%{opacity:1;}' if end == 100 else
                          f'{end-.01}%{{opacity:1;}}{end}%,100%{{opacity:0;}}')
-                extra_motion += f'.{name}{{animation:{name} 12s linear infinite;}}@keyframes {name}{{{keys}}}'
+                extra_motion += f'.{name}{{animation:{name} 4.8s linear 1;}}@keyframes {name}{{{keys}}}'
             extra_motion += '''
-            .old-server { animation:disconnect 12s linear infinite; }
-            .vote-request { animation:ask-vote 12s ease-in-out infinite; }
-            .vote-reply { animation:grant-vote 12s ease-in-out infinite; }
+            .old-server { animation:disconnect 4.8s linear 1; }
+            .vote-request { animation:ask-vote 4.8s ease-in-out 1; }
+            .vote-reply { animation:grant-vote 4.8s ease-in-out 1; }
+            .vote-reply-late { animation:grant-vote-late 4.8s ease-in-out 1; }
             @keyframes disconnect {
-              0%,7.99% { opacity:1; } 8%,100% { opacity:.45; }
+              0%,19.99% { opacity:1; } 20%,100% { opacity:.45; }
             }
             @keyframes ask-vote {
-              0%,16% { opacity:0; transform:translateX(0); }
-              17.6% { opacity:1; transform:translateX(0); }
-              22.8% { opacity:1; transform:translate(var(--dx),var(--dy)); }
-              24%,100% { opacity:0; transform:translate(var(--dx),var(--dy)); }
+              0%,40% { opacity:0; transform:translateX(0); }
+              44% { opacity:1; transform:translateX(0); }
+              57% { opacity:1; transform:translate(var(--dx),var(--dy)); }
+              60%,100% { opacity:0; transform:translate(var(--dx),var(--dy)); }
             }
             @keyframes grant-vote {
-              0%,24.4% { opacity:0; transform:translateX(0); }
-              25.6% { opacity:1; transform:translateX(0); }
-              30.8% { opacity:1; transform:translate(var(--dx),var(--dy)); }
-              32%,100% { opacity:0; transform:translate(var(--dx),var(--dy)); }
+              0%,61% { opacity:0; transform:translateX(0); }
+              64% { opacity:1; transform:translateX(0); }
+              77% { opacity:1; transform:translate(var(--dx),var(--dy)); }
+              80%,100% { opacity:0; transform:translate(var(--dx),var(--dy)); }
             }
             @media(prefers-reduced-motion:reduce) {
-              .old-server,.vote-request,.vote-reply,
+              .old-server,.vote-request,.vote-reply,.vote-reply-late,
               .initial-role,.offline-role,.follower-role,.candidate-role,.leader-role,
               .new-leader,.stage-start,.stage-timeout,.stage-vote,.stage-done { animation:none; }
             }
@@ -131,7 +181,7 @@ def render(kind, dark, animated):
         <circle class="packet request" cx="104" cy="50" r="3" fill="{accent}"/>
         <circle class="packet response" cx="332" cy="91" r="3" fill="{accent}"/>
         ''']
-        # One complete request/lookup/response sequence, then a readable still.
+        # One complete request/lookup/response sequence per loop.
         extra_motion = '''
         .request { animation:request 4.6s ease-in-out 1; }
         .response { animation:response 4.6s ease-in-out 1; }
@@ -240,7 +290,7 @@ def render(kind, dark, animated):
         parts += [node(x, y) for x, ys in [(60, [18, 42]), (200, [18, 42]), (340, [30])] for y in ys]
         parts += [label(60, 66, 'inputs'), label(200, 66, 'hidden layer'), label(340, 66, 'output')]
     motion = '''
-    .packet { opacity:0; animation:travel 1.8s ease-in-out 2; }
+    .packet { opacity:0; animation:travel 1.8s ease-in-out 1; }
     @keyframes travel {
       0%,12% { opacity:0; transform:translate(0,0); }
       22% { opacity:1; }
@@ -249,6 +299,15 @@ def render(kind, dark, animated):
     }
     @media(prefers-reduced-motion:reduce) { .packet { animation:none; } }
     ''' if animated else '.packet { opacity:0; }'
+    if animated:
+        if kind == 'network':
+            motion += '.output { animation:travel-output 1.8s ease-in-out 1; }'
+            motion += '@media(prefers-reduced-motion:reduce) { .output { animation:none; } }'
+            motion = schedule_timeline(motion, kind)
+        else:
+            # Other diagrams define their own packet motions.
+            motion = '.packet { opacity:0; }'
+            extra_motion = schedule_timeline(extra_motion, kind)
     title, desc = TITLES[kind]
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="400" height="{height}" viewBox="0 0 400 {height}" role="img" aria-labelledby="title desc">
   <title id="title">{title}</title><desc id="desc">{desc} Schematic illustration.</desc>

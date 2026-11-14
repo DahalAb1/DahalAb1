@@ -1,56 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="400" height="112" viewBox="0 0 400 112" role="img" aria-labelledby="title desc">
   <title id="title">SansCue audience feedback loop</title><desc id="desc">Speaker context informs an AI check-in draft. A moderator reviews and publishes it. Audience clarity feedback returns to the speaker. Schematic illustration.</desc>
-  <style>
-    .packet { opacity:0; animation:travel 1.8s ease-in-out 2; }
-    @keyframes travel {
-      0%,12% { opacity:0; transform:translate(0,0); }
-      22% { opacity:1; }
-      72% { opacity:1; transform:translate(var(--dx),var(--dy)); }
-      84%,100% { opacity:0; transform:translate(var(--dx),var(--dy)); }
-    }
-    @media(prefers-reduced-motion:reduce) { .packet { animation:none; } }
+  <style>.packet { opacity:0; }
+        .context { animation:context-intro 4.8s ease-in-out 0s 1, context-sequence 16.9s ease-in-out 5.8s infinite; }
+        .check-in { animation:publish-intro 4.8s ease-in-out 0s 1, publish-sequence 16.9s ease-in-out 5.8s infinite; }
+        .feedback { animation:feedback-intro 4.8s ease-in-out 0s 1, feedback-sequence 16.9s ease-in-out 5.8s infinite; }
+        .review-gate { animation:review-intro 4.8s ease-in-out 0s 1, review-sequence 16.9s ease-in-out 5.8s infinite; }
+        .speech-wave { animation:speech-intro 4.8s ease-in-out 0s 1, speech-sequence 16.9s ease-in-out 5.8s infinite; }
+        .audience-reply { animation:reply-intro 4.8s ease-in-out 0s 1, reply-sequence 16.9s ease-in-out 5.8s infinite; }
 
-        .context { animation:context 4.8s ease-in-out 1; }
-        .check-in { animation:publish 4.8s ease-in-out 1; }
-        .feedback { animation:feedback 4.8s ease-in-out 1; }
-        .review-gate { animation:review 4.8s ease-in-out 1; }
-        .speech-wave { animation:speech 4.8s ease-in-out 1; }
-        .audience-reply { animation:reply 4.8s ease-in-out 1; }
-        @keyframes context {
-          0%,5% { opacity:0; transform:translateX(0); }
-          8% { opacity:1; transform:translateX(0); }
-          22% { opacity:1; transform:translateX(45px); }
-          25%,100% { opacity:0; transform:translateX(45px); }
-        }
-        @keyframes review {
-          0%,22%,46%,100% { opacity:.12; }
-          29%,39% { opacity:.4; }
-        }
-        @keyframes publish {
-          0%,43% { opacity:0; transform:translateX(0); }
-          46% { opacity:1; transform:translateX(0); }
-          60% { opacity:1; transform:translateX(36px); }
-          63%,100% { opacity:0; transform:translateX(36px); }
-        }
-        @keyframes feedback {
-          0%,69% { opacity:0; transform:translate(0,0); }
-          72% { opacity:1; transform:translate(0,0); }
-          92% { opacity:1; transform:translate(-276px,0); }
-          96% { opacity:1; transform:translate(-276px,-16px); }
-          99%,100% { opacity:0; transform:translate(-276px,-16px); }
-        }
-        @keyframes speech {
-          0%,12%,100% { opacity:1; }
-          6% { opacity:.35; }
-        }
-        @keyframes reply {
-          0%,60%,75%,100% { fill:var(--soft); }
-          66% { fill:var(--accent); }
-        }
+
+
+
+
+
         @media(prefers-reduced-motion:reduce) {
           .context,.check-in,.feedback,.review-gate,.speech-wave,.audience-reply { animation:none; }
         }
-        </style>
+        @keyframes context-intro{0.00000000%{opacity:0; transform:translateX(0);}5.00000000%{opacity:0; transform:translateX(0);}8.00000000%{opacity:1; transform:translateX(0);}22.00000000%{opacity:1; transform:translateX(45px);}25.00000000%{opacity:0; transform:translateX(45px);}100.00000000%{opacity:0; transform:translateX(45px);}}@keyframes context-sequence{0.00000000%{opacity:0; transform:translateX(45px);}55.62124260%{opacity:0; transform:translateX(45px);}55.62130178%{opacity:0; transform:translateX(0);}57.04142012%{opacity:0; transform:translateX(0);}57.89349112%{opacity:1; transform:translateX(0);}61.86982249%{opacity:1; transform:translateX(45px);}62.72189349%{opacity:0; transform:translateX(45px);}84.02366864%{opacity:0; transform:translateX(45px);}100.00000000%{opacity:0; transform:translateX(45px);}}@keyframes publish-intro{0.00000000%{opacity:0; transform:translateX(0);}43.00000000%{opacity:0; transform:translateX(0);}46.00000000%{opacity:1; transform:translateX(0);}60.00000000%{opacity:1; transform:translateX(36px);}63.00000000%{opacity:0; transform:translateX(36px);}100.00000000%{opacity:0; transform:translateX(36px);}}@keyframes publish-sequence{0.00000000%{opacity:0; transform:translateX(36px);}55.62124260%{opacity:0; transform:translateX(36px);}55.62130178%{opacity:0; transform:translateX(0);}67.83431953%{opacity:0; transform:translateX(0);}68.68639053%{opacity:1; transform:translateX(0);}72.66272189%{opacity:1; transform:translateX(36px);}73.51479290%{opacity:0; transform:translateX(36px);}84.02366864%{opacity:0; transform:translateX(36px);}100.00000000%{opacity:0; transform:translateX(36px);}}@keyframes feedback-intro{0.00000000%{opacity:0; transform:translate(0,0);}69.00000000%{opacity:0; transform:translate(0,0);}72.00000000%{opacity:1; transform:translate(0,0);}92.00000000%{opacity:1; transform:translate(-276px,0);}96.00000000%{opacity:1; transform:translate(-276px,-16px);}99.00000000%{opacity:0; transform:translate(-276px,-16px);}100.00000000%{opacity:0; transform:translate(-276px,-16px);}}@keyframes feedback-sequence{0.00000000%{opacity:0; transform:translate(-276px,-16px);}55.62124260%{opacity:0; transform:translate(-276px,-16px);}55.62130178%{opacity:0; transform:translate(0,0);}75.21893491%{opacity:0; transform:translate(0,0);}76.07100592%{opacity:1; transform:translate(0,0);}81.75147929%{opacity:1; transform:translate(-276px,0);}82.88757396%{opacity:1; transform:translate(-276px,-16px);}83.73964497%{opacity:0; transform:translate(-276px,-16px);}84.02366864%{opacity:0; transform:translate(-276px,-16px);}100.00000000%{opacity:0; transform:translate(-276px,-16px);}}@keyframes review-intro{0.00000000%{opacity:.12;}22.00000000%{opacity:.12;}29.00000000%{opacity:.4;}39.00000000%{opacity:.4;}46.00000000%{opacity:.12;}100.00000000%{opacity:.12;}}@keyframes review-sequence{0.00000000%{opacity:.12;}55.62124260%{opacity:.12;}55.62130178%{opacity:.12;}61.86982249%{opacity:.12;}63.85798817%{opacity:.4;}66.69822485%{opacity:.4;}68.68639053%{opacity:.12;}84.02366864%{opacity:.12;}100.00000000%{opacity:.12;}}@keyframes speech-intro{0.00000000%{opacity:1;}6.00000000%{opacity:.35;}12.00000000%{opacity:1;}100.00000000%{opacity:1;}}@keyframes speech-sequence{0.00000000%{opacity:1;}55.62124260%{opacity:1;}55.62130178%{opacity:1;}57.32544379%{opacity:.35;}59.02958580%{opacity:1;}84.02366864%{opacity:1;}100.00000000%{opacity:1;}}@keyframes reply-intro{0.00000000%{fill:var(--soft);}60.00000000%{fill:var(--soft);}66.00000000%{fill:var(--accent);}75.00000000%{fill:var(--soft);}100.00000000%{fill:var(--soft);}}@keyframes reply-sequence{0.00000000%{fill:var(--soft);}55.62124260%{fill:var(--soft);}55.62130178%{fill:var(--soft);}72.66272189%{fill:var(--soft);}74.36686391%{fill:var(--accent);}76.92307692%{fill:var(--soft);}84.02366864%{fill:var(--soft);}100.00000000%{fill:var(--soft);}}</style>
   <rect width="400" height="112" rx="8" fill="#f6faf9"/>
   <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13"><g font-size="10" letter-spacing="1">
           <text x="56" y="18" text-anchor="middle" fill="#526f68">SPEAKER</text><text x="197" y="18" text-anchor="middle" fill="#526f68">MODERATOR</text><text x="332" y="18" text-anchor="middle" fill="#526f68">AUDIENCE</text>
