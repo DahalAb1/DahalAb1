@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="76" viewBox="0 0 400 76" role="img" aria-labelledby="title desc">
+  <title id="title">Raft replication</title><desc id="desc">A leader sends a write to two followers. Schematic illustration.</desc>
+  <style>.packet { opacity:0; }</style>
+  <rect width="400" height="76" rx="8" fill="#11191c"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13"><path d="M70 32 L220 17" stroke="#35454a" stroke-width="1.5"/><path d="M70 32 L220 47" stroke="#35454a" stroke-width="1.5"/><circle class="packet" cx="70" cy="32" r="3" fill="#60cbb5" style="--dx:150px;--dy:-15px;animation-delay:0s"/><circle class="packet" cx="70" cy="32" r="3" fill="#60cbb5" style="--dx:150px;--dy:15px;animation-delay:0s"/><circle cx="70" cy="32" r="10" fill="#233e39" stroke="#60cbb5" stroke-width="1.5"/><circle cx="220" cy="17" r="6" fill="#233e39" stroke="#60cbb5" stroke-width="1.5"/><circle cx="220" cy="47" r="6" fill="#233e39" stroke="#60cbb5" stroke-width="1.5"/><text x="70" y="65" text-anchor="middle" fill="#aebfc4">leader</text><text x="300" y="37" text-anchor="middle" fill="#aebfc4">two followers</text></g>
+</svg>
