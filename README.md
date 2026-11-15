@@ -41,7 +41,7 @@ Custom entries and hashes were prepared before timing; `std::unordered_map` incl
 </p>
 
 **[SansCue](https://github.com/DahalAb1/SansCue)** · Rust / TypeScript<br>
-Co-built a communication platform that turns live conversational context into audience check-ins and private Q&A, with moderator review. **[Watch demo →](https://youtu.be/OSyNFKMg9XY?si=arGS2KtL61ZeeMFI)**
+Co-built a communication platform that turns live conversational context into audience check-ins and private Q&A, with moderator review. **[Watch demo →](https://youtu.be/OSyNFKMg9XY?si=keWO3_wHtXzelL29)**
 
 <p>
 <a href="https://github.com/DahalAb1/SansCue">
