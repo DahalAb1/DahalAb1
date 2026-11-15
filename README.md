@@ -23,7 +23,11 @@ A replicated key/value store with leader election, crash persistence, and snapsh
 </p>
 
 **[Redis-style server](https://github.com/DahalAb1/Redis)** · C++<br>
-Non-blocking sockets, an event loop, and incremental hash-table resizing. [Benchmarks](https://github.com/DahalAb1/Redis/tree/main/bench#incremental-resize-vs-stdunordered_map-tail-latency) investigate pauses as the table grows.
+Non-blocking sockets, an event loop, and incremental hash-table resizing.
+
+At 4 million keys, the custom hash table recorded a maximum insert time of **0.429 ms vs. 241 ms for `std::unordered_map`—about 560× shorter** in this microbenchmark. [Results and methodology](https://github.com/DahalAb1/Redis/tree/main/bench#incremental-resize-vs-stdunordered_map-tail-latency).
+
+Custom entries and hashes were prepared before timing; `std::unordered_map` included that work during insertion.
 
 <p>
 <a href="https://github.com/DahalAb1/Redis">
